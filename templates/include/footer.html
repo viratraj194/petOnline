@@ -1,0 +1,103 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .footer {
+            background-color: green;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            height: 200px;
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+        }
+        /*         
+        .footer::before {
+            background-color: green;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            height: 200px;
+            position: fixed;
+            width: 100%;
+            bottom: 100%;
+            top: 100%;
+        } */
+        
+        .footer_sub {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .footer_sub h1 {
+            font-size: xx-large;
+        }
+        
+        .footer_sub input {
+            height: 40px;
+            border-radius: 8px;
+            outline: none;
+            color: black;
+        }
+        
+        #copyright {
+            border-top: 2px solid white;
+            margin: 10px auto;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #copyright a {
+            color: gray;
+            font-weight: bold;
+        }
+        
+        #copyright a:hover {
+            color: gray;
+            font-weight: bold;
+            list-style: armenian;
+        }
+        
+        .sub_input {
+            width: 600px;
+            padding-left: 10px;
+        }
+        
+        .sub_button {
+            background-color: rgb(108, 110, 111);
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="footer" id="footer">
+
+        <div class="footer_sub">
+            <h1>
+                <strong>SUBSCRIBE TO OUR NEWSLETTER</strong>
+            </h1>
+
+            <div>
+                <input class="sub_input" type="email" name="email" placeholder="Subscribe">
+                <input class="sub_button" type="button" value="SIGN UP" style=" color: white;">
+            </div>
+
+            <div id="copyright">
+                <h5>©2022 PETonline All Right Received</h5>
+                <strong>Developed By</strong><a href="#"> Virat Raj</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

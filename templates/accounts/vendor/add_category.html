@@ -1,0 +1,105 @@
+{% extends 'accounts/base.html'%} {% block content %}
+
+<style>
+    .menu-card {
+        width: 800px;
+        float: right;
+        margin: 2cm 3cm 2cm 0px;
+        background-color: white;
+        padding: 10px;
+        box-shadow: 0px -2px 2px rgb(205, 200, 200);
+    }
+    
+    .category_form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .menu_builder_titles {
+        padding: 10px;
+        border-bottom: 1px solid rgb(228, 225, 225);
+    }
+    
+    .back_btn,
+    .add_category_title {
+        padding: 10px;
+    }
+    
+    .back_btn button {
+        width: 100px;
+    }
+    
+    .cat-name,
+    .cat-description {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .cat-name input {
+        outline: none;
+        height: 35px;
+        border-radius: 8px;
+        padding-left: 10px;
+        border: 1px solid gainsboro;
+    }
+    
+    .cat-description textarea {
+        outline: none;
+        border-radius: 8px;
+        padding-left: 10px;
+        border: 1px solid gainsboro;
+    }
+</style>
+
+{% include 'include/cover.html'%} {%include 'include/v_side_menu.html'%}
+
+
+
+
+<div class="menu-card">
+    <div class="menu_builder_titles">
+        <strong class="text-uppercase">build your food menu</strong>
+    </div>
+    <div class="back_btn">
+        <button class="btn btn-secondary btn-sm" onclick="history.back()"><i class="fa fa-angle-left" aria-hidden="true"></i> &nbsp; Back</button>
+    </div>
+
+
+    <div class="add_category_title">
+        <strong> Add new Category</strong>
+    </div>
+    <div class="add_item_form">
+        <form action="" method="post">
+            {%csrf_token%}
+            <div class="category_form">
+                <div class="cat-name">
+
+                    <label>Category Name *</label> {{form.category_name}}
+                </div>
+
+                <div class="cat-description">
+                    <label>Description *</label> {{form.description}}
+
+                </div>
+            </div>
+            {% for field in form %} {% if field.errors %} {% for error in field.errors %}
+            <li style="color: red; ">{{ error }}</li>
+            {% endfor %} {% endif %} {% endfor %}
+            <div class="back_btn">
+                <button type="submit" class="btn btn-sm btn-info" style="color: white;"><i class="	fa fa-check"
+                    aria-hidden="true"></i>&nbsp; Create
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+</div>
+
+
+{%endblock%}

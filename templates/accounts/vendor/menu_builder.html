@@ -1,0 +1,97 @@
+{% extends 'accounts/base.html'%} {% block content %}
+
+<style>
+    .menu_card {
+        width: 700px;
+        float: right;
+        margin: 2cm 3cm 2cm 0px;
+        background-color: white;
+        padding: 10px;
+        box-shadow: 0px -2px 2px rgb(205, 200, 200);
+    }
+    
+    .menu_builder_tag,
+    .menu_builder_category {
+        padding: 10px;
+    }
+    
+    .add_items_btn {
+        justify-content: space-around;
+    }
+    
+    .add_items_btn a {
+        padding-left: 6px;
+    }
+    
+    .not_category {
+        margin-top: 30px;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .not_category h2 {
+        font-size: larger;
+        font-weight: bold;
+    }
+    
+    .not_category p {
+        color: #7f977f;
+    }
+    
+    #add_category_btn {
+        width: 120px;
+    }
+</style>
+
+{% include 'include/cover.html'%} {%include 'include/v_side_menu.html'%}
+
+<div class="menu_card">
+    <div class="menu_builder_tag">
+        <strong class="text-uppercase">build your menu</strong>
+    </div>
+    <hr>
+    <div class="menu_builder_category">
+        <strong>Menu Category</strong>
+    </div>
+
+    <div class="add_items_btn  float-right">
+        <a href="{% url 'add_category'%}" id="add_category_btn" class="btn btn-danger btn-sm "><i class="fa-solid fa-plus"></i> &nbsp; Add Category</a>
+        <a href="{% url 'add_food'%}" id="add_menu_btn" class="btn btn-success btn-sm "><i class="fa-solid fa-plus"></i> &nbsp; Add Food</a>
+    </div>
+
+    {% if categories %}
+
+    <table class="table table-hover border-less " style="margin-top:2cm;">
+
+
+        <tbody>
+            {% for cat in categories %}
+            <tr>
+                <td class="text-left">{{forloop.counter}}</td>
+                <td class="text-left text-bold">
+                    <a href="{% url 'fooditems_by_category' cat.id %}">
+                        <p class="mb-0 font-wight-bold">{{cat}}</p><small class="text-muted">{{cat.description}}</small></a>
+                </td>
+
+
+                <td class="text-right"><a href="{% url 'edit_category' cat.id %}" style="color:unset;"><i
+                    class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; <a href="{% url 'delete_category' cat.id%}" onclick="return confirm('Are you sure you want to delete this category?')"><i class="fa fa-trash text-danger"></i></a></td>
+            </tr>
+            {%endfor%}
+
+        </tbody>
+    </table>
+    {%else%}
+    <div class="not_category">
+        <i class="far fa-grin-beam-sweat"></i>
+        <h2>Sorry</h2>
+        <p>this restaurant has not added the food</p>
+
+    </div>
+    {%endif%}
+
+
+</div>
+
+
+{%endblock%}

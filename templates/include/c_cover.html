@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>c_cover</title>
+    <style>
+        .cover_photo {
+            box-sizing: border-box;
+        }
+        
+        .c_profile_photo img {
+            width: 120px;
+            border: 3px solid white;
+        }
+        
+        .c_profile_details {
+            display: flex;
+            align-items: center;
+            margin-top: 2cm;
+            margin-left: 4cm;
+        }
+        
+        .c_profile_details .c_details {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+            color: white;
+        }
+        
+        .c_profile_details .c_details strong {
+            font-size: larger;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<div class="cover_photo" style=" padding-top: 44px; padding-bottom: 176px; margin-bottom: 0px; background: url({% static 'img/bg-image2.jpg' %}) no-repeat scroll 0 0 / cover; height: 10cm; ;">
+    <div class="c_profile_details">
+        <div class="c_profile_photo">
+            <img src="{% static 'img/bg-image3.jpg' %}" alt="">
+        </div>
+
+        <div class="c_details">
+            <strong>Virat Raj.</strong>
+            <span>
+                <i class="fa fa-location-dot"></i> &nbsp; Lorem ipsum dolor sit amet.
+            </span>
+        </div>
+    </div>
+</div>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        #nav {
+            height: 90px;
+            background-color: white;
+        }
+        
+        #navbarSupportedContent ul .btn {
+            font-weight: bold;
+            font-style: normal;
+            color: black;
+            margin-left: 10px;
+            width: 124px;
+            color: rgb(15, 150, 15);
+            border: 1px solid black;
+        }
+        
+        #navbarSupportedContent ul .btn:hover {
+            background-color: rgb(15, 150, 15);
+            color: white;
+        }
+        
+        #navbarSupportedContent ul {
+            justify-content: space-around;
+        }
+        
+        .btn {
+            border-radius: 8px;
+        }
+        
+        #search-btn {
+            margin-left: 14px;
+            height: 41px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="nav" class="navbar navbar-expand-lg  bs-navbar-brand-color: rgb(0 0 0);">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{%url 'home'%}"><img id="PETonline" src="{% static 'logo/logo2.png' %}" alt="Logo" style=" display: inline;
+            margin: 15px 17px;
+            width: 195px;
+            border-radius: 10px"></a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button id="search-btn" class="btn btn-primary" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
+                    {% if user.is_authenticated%}
+                    <a href="#" style="margin-top: 1px;">
+                        <i class="fa fa-shopping-basket text- nav-item" style="font-size: 20px; color: rgb(127, 91, 13);"></i>
+                        <span class="badge badge-warning" id="cart_counter" style="border-radius: 50px; position: relative; bottom: 1px; left: -12px; top: 8px; color: red;">0</span>
+                    </a>
+                    {%endif%}
+                    <a class="btn btn-sm " href="{% url 'marketplace' %}">marketplace</a> {% if user.is_authenticated%}
+
+                    <div id="account" class="nav-item">
+
+                        <a href="{% url 'account'%}" class=" btn btn-sm"> Account </a>
+                    </div>
+                    <a class="btn btn-sm" href="{% url 'logout'%}">Logout</a> {%else%}
+
+                    <a class="btn btn-sm" href="{% url 'login'%}">Login</a>
+
+
+                    <a class="btn btn-sm" aria-current="page" href="{% url 'registerUser' %}">Register</a>
+
+
+                    <a class="btn btn-sm " aria-current="page" href="{% url 'registerVendor' %}" style="width: 160px;">Register Vendor</a> {%endif%}
+
+
+
+
+                </ul>
+
+
+
+            </div>
+        </div>
+    </nav>
+</body>
+
+</html>

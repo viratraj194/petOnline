@@ -1,0 +1,101 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <title>sidebar</title>
+    <style>
+        .sidebar {
+            box-sizing: border-box;
+            display: inline;
+            width: 210px;
+            position: absolute;
+            left: 0;
+            margin-top: 2cm;
+            z-index: -1;
+            float: left;
+            margin-left: 6cm;
+        }
+        
+        .unlist {
+            box-shadow: 0 8px 20px rgb(133, 125, 125);
+            border-radius: 10px;
+            margin-top: 10cm;
+            padding: 15px;
+            box-sizing: border-box;
+            border: solid 2px rebeccapurple;
+            margin: auto;
+            display: inline block;
+            background-color: aliceblue;
+            list-style: none;
+        }
+        
+        .unlist {
+            text-align: left;
+        }
+        
+        .unlist li {
+            padding: 10px;
+        }
+        
+        .unlist a {
+            padding-left: 20px;
+        }
+        /*         
+        .list {
+            text-align: left;
+            width: 80%;
+            border-radius: 8px;
+            border: hidden;
+            padding: 4px;
+            font-family: initial;
+            font-size: medium;
+        } */
+        
+        .activate {
+            background-color: #26c00b;
+            color: white;
+            box-shadow: 2px 4px 10px 6px rgb(73, 199, 73);
+            border-radius: 8px;
+        }
+        
+        .activate #sidebar_logo {}
+        
+        a {
+            text-decoration: none;
+        }
+        
+        #sidebar_logo {
+            display: inline;
+            height: 20px;
+            margin: 4px 15px;
+            width: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <ul class="unlist">
+            <li class="{% if '/accounts/vendor_account/' in  request.path or 'accounts/vendor/' == request.path %} activate {%endif%}">
+                <a href="{% url 'vendor_account'%}"><i class="fa fa-home"></i> &nbsp; Dashboard</a>
+            </li>
+            <li class="{% if 'profile' in request.path %} activate {% endif %}">
+                <a href="{% url 'vprofile'%}"><i class="fa fa-user"></i> &nbsp;Account</a>
+            </li>
+         
+            <li class="list">
+                <a href="#"><i class="fa fa-gear"></i> &nbsp;Settings</a>
+            </li>
+            <li class="list" id="last-list">
+                <a href="#"><i class="fa fa-commenting-o"></i> &nbsp;Help</a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .cover_photo {
+            position: relative;
+            z-index: -1;
+            opacity: 0.9;
+            height: 300px;
+        }
+        
+        #profile_photo img {
+            position: relative;
+            display: inline;
+            z-index: 1;
+        }
+        
+        #profile_photo {
+            width: 140px;
+        }
+        
+        .cover_content {
+            margin-top: 2cm;
+            margin-left: 2cm;
+            display: flex;
+        }
+        
+        .cover_content .vendor_info {
+            margin-top: 20px;
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cover_content .vendor_info strong {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .cover_content .vendor_info small {
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    {% if vendor.user_profile.cover_photo %}
+    <div class="cover_photo" style=" padding-top: 44px; padding-bottom: 176px; margin-bottom: 0px; background: url({{vendor.user_profile.cover_photo.url}}) no-repeat scroll 0 0 / cover; height: 10cm; ;">
+        {% else %}
+        <div class="page-section restaurant-detail-image-section" style=" background: url({% static 'img/bg-image2.jpg' %})  no-repeat scroll 0 0 / cover; height: 10cm; ">
+            {% endif %}
+            <!-- Container Start -->
+
+            <!-- Row Start -->
+
+            <!-- Column Start -->
+
+            <div class="cover_content">
+                <figure>
+                    {% if vendor.user_profile.profile_picture %}
+                    <div id="profile_photo" style="border: 3px solid white;">
+                        <img id="profile" src="{{vendor.user_profile.profile_picture.url}}" alt="...">
+                    </div>
+                    {% else %}
+                    <div id="profile_photo" style="border: 3px solid white;">
+                        <img id="profile" src="{% static 'img/default-profile.PNG' %}" class="img-thumbnail" alt="..." style="z-index: 1; opacity: 1;">
+                    </div>
+                    {% endif %}
+                </figure>
+
+
+                <div class="vendor_info" style="color: white;">
+                    <strong>{{vendor}}</strong>
+
+                    <small>
+                        <i class="fa fa-location-dot"></i>  &nbsp; {{ vendor.user_profile.address }}
+                    </small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Column End -->
+
+        <!-- Row End -->
+
+        <!-- Container End -->
+
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+{% autoescape off %}
+Hi {{user.first_name}},
+{% if is_approved%}
+congratulation! your restaurant is approved
+{% else %}
+sorry you are not eligible for publishing your food manu in public marketplace. for more support contact support@fodonline.com
+{%endif%}
+
+
+{% endautoescape %}

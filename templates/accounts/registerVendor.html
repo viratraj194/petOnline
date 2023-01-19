@@ -1,0 +1,134 @@
+{% extends 'accounts/base.html'%}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Vendor</title>
+    <style>
+        .card{
+            margin-left: 7cm;
+            margin-right: 7cm;
+            margin-top: 3cm;
+            margin-bottom: 3cm;
+            border-style: hidden;
+            box-shadow: -7px 6px 8px 7px #b4adad5c;
+            background-color: aliceblue;
+
+                }
+        .py-24 {
+            padding-top: 3rem;
+            padding-bottom: 5rem;
+            }
+
+        .w-12 {
+            width: 18rem;
+            margin-left: 8cm;
+            filter: drop-shadow(2px 5px 4px RED);
+            }
+
+
+    </style>
+</head>
+<body>
+<div class="card">
+    <section class="text-gray-600 body-font relative">
+        <form action="" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+
+            <div class="container px-5 py-24 mx-auto">
+                <div class="flex flex-col text-center w-full mb-12">
+                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Register As Vendor</h1>
+                    <div class="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
+                    <p class="lg:w-2/3 mx-auto leading-relaxed text-base">join with us to increase your sells 100x
+                        online.</p>
+                </div>
+
+                <div class="lg:w-1/2 md:w-2/3 mx-auto">
+                    <div class="flex flex-wrap -m-2">
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label class="leading-7 text-sm text-gray-600"> First Name</label>
+                                <input type="text" name="first_name"
+                                       class="w-full  bg-opacity-50 rounded border   text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label class="leading-7 text-sm text-gray-600">Last Name</label>
+                                <input type="text" name="last_name"
+                                       class="w-full  bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label class="leading-7 text-sm text-gray-600">Vendor Name</label>
+                                <input type="text" name="vendor_name"
+                                       class="w-full  bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label class="leading-7 text-sm text-gray-600">Username</label>
+                                <input type="text" name="username"
+                                       class="w-full  bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label class="leading-7 text-sm text-gray-600">Email</label>
+                                <input type="email" name="email"
+                                       class="w-full  bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label class="leading-7 text-sm text-gray-600">Password</label>
+                                <input type="password" name="password"
+                                       class="w-full  bg-opacity-500 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label class="leading-7 text-sm text-gray-600">vendor licence</label>
+                                <input type="file" name="vendor_licence"
+                                       class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-100 focus:border-indigo-100 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-1 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label class="leading-7 text-sm text-gray-600">Conform Password</label>
+                                <input type="password" name="conform_password"
+                                       class="w-full bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <ul class="errorlist">
+                            {% for field in form %}
+                            {% if field.errors%}
+                            {% for error in field.errors%}
+                            <li style="color: red;">{{error}}</li>
+                            {%endfor%}
+                            {%endif%}
+                            {% endfor%}
+
+                            <li style="color:red;"> {{form.non_field_errors}}</li>
+                        </ul>
+
+                        <div class="p-2 w-full">
+                            <input type="submit" class="btn btn-primary" value="Submit">
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </section>
+</div>
+</body>
+</html>
+
+{%endblock%}

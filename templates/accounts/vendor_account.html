@@ -1,0 +1,63 @@
+{% extends 'accounts/base.html'%} {% block content %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>cust_account</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        .dashboard {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .dashboard .included_sidebar {
+            display: inline;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .dashboard .included_table {
+            display: inline;
+            position: relative;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'include/cover.html'%}
+
+    <div class="cards">
+
+        <div class="sidebars">
+            <div>
+                {%include 'include/alert.html'%}
+            </div>
+
+        </div>
+
+        <div class="dashboard">
+            <div class="included_sidebar">
+
+                {%include 'include/v_side_menu.html'%}
+            </div>
+            <div class="included_table">
+
+                {%include 'include/table.html'%}
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+
+{%endblock%}

@@ -1,0 +1,223 @@
+{% extends 'accounts/base.html'%} {% block content %} {%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cover_photo {
+            position: relative;
+            height: 300px;
+        }
+        
+        .cover_photo .cover_profile {
+            margin-left: 4cm;
+            margin-top: 0px;
+            display: flex;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cover_photo .cover_profile .cover_content {
+            margin-left: 20px;
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            color: white;
+        }
+        
+        .cover_photo .cover_profile .cover_content strong {
+            font-weight: bolder;
+            font-size: 1.5rem;
+        }
+        
+        .cover_photo .cover_profile .cover_content small {
+            font-size: medium;
+        }
+        
+        .category_list h6 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            padding: 6px;
+        }
+        
+        .category_list h3 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: large;
+            padding-bottom: 10px;
+        }
+        
+        #profile_photo {
+            box-sizing: border-box;
+            border: 4px solid white;
+            border-radius: 8px;
+        }
+        
+        .cover_photo img {
+            position: relative;
+            display: inline;
+            width: 150px;
+            z-index: -1;
+            opacity: 1;
+        }
+        /* #vendor_all_category */
+        
+        .vendor_all_category {
+            display: flex;
+            margin: 2cm auto;
+            width: 80%;
+            justify-content: space-around;
+            box-sizing: border-box;
+        }
+        
+        .menu_title {
+            background-color: white;
+            height: 40px;
+            padding-top: 7px;
+            width: 120px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 8px 0px 0px 0px;
+            box-shadow: 0px -1px 2px rgb(204, 199, 199);
+        }
+        
+        .category {
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+        }
+        
+        #main_category {
+            background-color: white;
+            width: 800px;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+        
+        #main_category small {
+            color: rgb(176, 172, 172);
+        }
+        
+        .category_food {
+            display: flex;
+            margin: 10px auto;
+            justify-content: space-between;
+            border-bottom: 1px solid rgb(195, 189, 189);
+        }
+        
+        .category_food .food_details {
+            display: flex;
+            padding: 10px;
+        }
+        
+        .category_food .food_details .food {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+            padding: 10px;
+        }
+        
+        .add_items_to_cart {
+            padding: 10px;
+        }
+        
+        .category_no_food {
+            text-align: center;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .category_no_food p {
+            color: #7f977f;
+        }
+        
+        .category_no_food h2 {
+            font-size: larger;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cover_photo" style="padding-top: 44px; padding-bottom: 176px; margin-bottom: 0px; background: url({{vendor.user_profile.cover_photo.url }}) no-repeat center / cover;">
+        <div class="cover_profile">
+            <div id="profile_photo">
+                <img id="profile" src="{{vendor.user_profile.profile_picture.url}}" alt="...">
+            </div>
+            <div class="cover_content">
+                <strong>{{vendor}}</strong>
+                <small>
+                    <i class="fa fa-location-dot"></i>  &nbsp; {{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}
+                </small>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="vendor_all_category">
+        <div class="category_list">
+            <h3><i class=" 	fas fa-cat"></i> &nbsp; Category</h4>
+                {%for category in categories%}
+
+                <h6 style="color: rgb(226, 12, 12); border-bottom: 1px solid rgb(221, 217, 217);">{{category}}</h6>
+                {%endfor%}
+
+        </div>
+
+        <div class="main_category">
+            <div class="menu_title">
+                <strong style="color: rgb(205, 46, 46);"><i class="fa fa-shopping-basket"></i> &nbsp; Menu</strong>
+            </div>
+            {% if categories %}
+            <div id="main_category">
+                {% for category in categories%}
+                <div class="category" style="display: flex;">
+                    <strong style="color: rgb(165, 44, 44);">{{category}}.</strong>
+                    <small>{{category.description}}</small>
+                </div>
+                {% for food in category.fooditems.all%}
+                <div class="category_food">
+
+                    <div class="food_details">
+
+                        <img src="{{food.image.url}}" alt="" width="82" style="border: 3px solid rgb(92, 210, 92);">
+                        <div class="food">
+                            <strong>{{food}}.</strong>
+                            <small>{{food.description}}</small>
+                        </div>
+                    </div>
+                    <div class="add_items_to_cart">
+                        <span>{{food.price}}₹</span> &nbsp;
+                        <a href="#"><i class="fas fa-minus" style="color: rgb(219, 15, 15);"></i></a>&nbsp; 0 &nbsp;<a href="#"><i class=" fas fa-plus" style="color: rgb(219, 15, 15);"></i></a>
+
+                    </div>
+
+                </div>
+                {%endfor%} {%endfor%}
+            </div>
+            {%else%}
+            <div id="main_category">
+
+
+                <div class="category_no_food">
+
+                    <i class="far fa-grin-beam-sweat"></i>
+                    <h2>Sorry</h2>
+                    <p>this restaurant has not added the food</p>
+
+                </div>
+
+            </div>
+            {%endif%}
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+{%endblock%}
