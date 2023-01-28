@@ -1,0 +1,232 @@
+{% extends 'accounts/base.html'%} {% block content %} {%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .category_list h6 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            padding: 6px;
+        }
+        
+        .category_list h3 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: large;
+            padding-bottom: 10px;
+        }
+        /* #vendor_all_category */
+        
+        .vendor_all_category {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 2cm auto;
+            width: 80%;
+            justify-content: space-around;
+            box-sizing: border-box;
+        }
+        
+        .menu_title {
+            background-color: white;
+            height: 40px;
+            padding-top: 7px;
+            width: 130px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 8px 0px 0px 0px;
+            box-shadow: 0px -1px 2px rgb(204, 199, 199);
+        }
+        
+        .menu_title:hover strong {
+            border-bottom: 2px solid rgb(5, 103, 13);
+        }
+        
+        .category {
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+        }
+        
+        #main_category {
+            background-color: white;
+            width: 800px;
+            margin-right: 20px;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+        
+        #main_category small {
+            color: rgb(176, 172, 172);
+        }
+        
+        .category_food {
+            display: flex;
+            margin: 10px auto;
+            justify-content: space-between;
+            border-bottom: 1px solid rgb(195, 189, 189);
+        }
+        
+        .category_food .food_details {
+            display: flex;
+            padding: 10px;
+        }
+        
+        .category_food .food_details .food {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+            padding: 10px;
+        }
+        
+        .add_items_to_cart {
+            padding: 10px;
+            justify-content: space-between;
+        }
+        
+        .add_items_to_cart a {
+            border: 1px solid red;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        
+        .add_items_to_cart label {
+            margin: 0 20px;
+        }
+        
+        .category_no_food {
+            text-align: center;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .category_no_food p {
+            color: #7f977f;
+        }
+        
+        .category_no_food h2 {
+            font-size: larger;
+            font-weight: bold;
+        }
+        /* texs */
+        
+        .taxs {
+            background-color: white;
+            padding: 20px;
+        }
+        
+        .taxs ul li {
+            display: block;
+            width: 300px;
+            margin: 10px;
+        }
+        
+        .taxs ul li span {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="vendor_all_category">
+
+        <div class="main_category">
+            <div class="menu_title">
+                <strong style="color: rgb(5, 103, 13);"><i class="fa fa-shopping-basket"></i> &nbsp; Menu</strong>
+            </div>
+            {%if cart_items%}
+            <div id="main_category">
+                <div class="text-center p-5" id="empty-cart" style="display:none ;">
+                    <h5 class="text-center">Cart is Empty.</h5>
+                    <div class="text-center"><a href="{% url 'marketplace' %}" class="btn btn-success"><i
+                                class="fa fa-plus" aria-hidden="true"></i> Add Items</a>
+                    </div>
+                </div>
+                <ul>
+                    {% for item in cart_items%}
+
+                    <li id="cart-item-{{item.id}}">
+                        <div class="category_food">
+
+                            <div class="food_details">
+
+                                <img src="{{item.fooditem.image.url}}" alt="" width="82" style="border: 3px solid rgb(92, 210, 92);">
+                                <div class="food">
+                                    <strong>{{item.fooditem}}.</strong>
+                                    <small>{{item.fooditem.description}}</small>
+                                    <a href="{% url 'vendor_detail' item.fooditem.vendor.vendor_slug %}" class="badge badge-warning" style="color: black; background-color: rgb(222, 222, 22);">{{ item.fooditem.vendor }}</a>
+                                </div>
+                            </div>
+                            <div class="add_items_to_cart">
+                                <span>{{item.fooditem.price}}₹</span> &nbsp;
+                                <a href="#" class="decrees_cart" data-id="{{item.fooditem.id}}" id="{{item.id}}" data-url="{% url 'decrees_cart' item.fooditem.id %}"><i class="fas fa-minus" style="color: rgb(219, 15, 15);"></i></a>
+                                <label id="qty-{{item.fooditem.id}}">0 </label>
+                                <a href="#" class="add_to_cart" data-id="{{item.fooditem.id}}" data-url="{% url 'add_to_cart' item.fooditem.id %}"><i class=" fas fa-plus" style="color: rgb(219, 15, 15);"></i></a> &nbsp;
+                                <a href="#" class="delete_cart" data-id="{{item.id}}" data-url="{% url 'delete_cart' item.id%}"><i class="fa fa-trash" style="color: rgb(219, 15, 15);"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                    {%endfor%}
+                </ul> {% for item in cart_items%}
+                <span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}"></span> {%endfor%}
+            </div>
+            {%else%}
+            <div id="main_category">
+
+
+                <div class="category_no_food">
+
+                    <i class="far fa-grin-beam-sweat"></i>
+                    <h2>Sorry</h2>
+                    <p>There is no item in the cart so please add some</p>
+                    <a href="{% url 'marketplace'%}" class="btn btn-success">Add Item</a>
+                </div>
+
+            </div>
+            {%endif%}
+
+        </div>
+        <div class="category_list">
+            <div class="menu_title">
+                <strong style="color:  rgb(5, 103, 13);"><i class="fa fa-shopping-basket"></i> &nbsp; Your Order</strong>
+            </div>
+            <div class="taxs">
+                <ul>
+                    <li style="list-style: none;">
+                        subtotal
+                        <span>0</span>
+                    </li>
+                    <li style="list-style: none;">
+                        tex1
+                        <span>0</span>
+                    </li>
+                    <li style="list-style: none;">
+                        tax2
+                        <span>0</span>
+                    </li>
+                </ul>
+                <ul>
+                    <li style="list-style: none; font-weight: bold;">
+                        Total
+                        <span>0</span>
+                    </li>
+                </ul>
+                <a href="#" class="btn btn-success w-100 p-2 mt-3 mb-3">PROCEED TO CHECK OUT</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+{%endblock%}

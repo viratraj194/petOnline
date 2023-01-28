@@ -21,7 +21,7 @@
         }
         
         .listing_vendor .vendor_list {
-            margin-top: 1cm;
+            margin-top: 30px;
             display: flex;
             min-height: 150px;
             background-color: white;
@@ -38,8 +38,20 @@
             margin-left: 8px;
         }
         
+        .vendor_list .small_detail strong {
+            width: 100px;
+        }
+        
+        #small_detail {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
         .listing_vendor .vendor_list a {
-            margin-left: 210px;
+            margin-left: 200px;
+            /* margin: 20px; */
+            width: 100px;
             border: 1px solid rgb(231, 120, 120);
         }
         
@@ -76,13 +88,16 @@
         {%for vendor in vendors %}
         <div class="vendor_list">
             <img src="{{vendor.user_profile.profile_picture.url }}" class="img-thumbnail" alt="..." style="max-width: 100px;">
+            <div id="small_detail">
+                <div class="small_detail">
+                    <strong>{{vendor}}</strong>
+                    <small>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}</small>
 
-            <div class="small_detail">
-                <strong>{{vendor}}</strong>
-                <small>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}</small>
+                </div>
+
+                <a href="{% url 'vendor_detail' vendor.vendor_slug %}" class="btn btn-sm" id="view_menu">VIEW MENU</a>
 
             </div>
-            <a href="{% url 'vendor_detail' vendor.vendor_slug %}" class="btn btn-sm">VIEW MENU</a>
         </div>
         {% endfor %}
     </div>

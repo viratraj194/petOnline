@@ -121,6 +121,17 @@
         
         .add_items_to_cart {
             padding: 10px;
+            justify-content: space-between;
+        }
+        
+        .add_items_to_cart a {
+            border: 1px solid red;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        
+        .add_items_to_cart label {
+            margin: 0 20px;
         }
         
         .category_no_food {
@@ -192,7 +203,9 @@
                     </div>
                     <div class="add_items_to_cart">
                         <span>{{food.price}}₹</span> &nbsp;
-                        <a href="#"><i class="fas fa-minus" style="color: rgb(219, 15, 15);"></i></a>&nbsp; 0 &nbsp;<a href="#"><i class=" fas fa-plus" style="color: rgb(219, 15, 15);"></i></a>
+                        <a href="#" class="decrees_cart" data-id="{{food.id}}" data-url="{% url 'decrees_cart' food.id %}"><i class="fas fa-minus" style="color: rgb(219, 15, 15);"></i></a>
+                        <label id="qty-{{food.id}}">0 </label>
+                        <a href="#" class="add_to_cart" data-id="{{food.id}}" data-url="{% url 'add_to_cart' food.id %}"><i class=" fas fa-plus" style="color: rgb(219, 15, 15);"></i></a>
 
                     </div>
 
@@ -215,6 +228,8 @@
             {%endif%}
 
         </div>
+        {% for item in cart_items%}
+        <span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}"></span> {%endfor%}
     </div>
 
 </body>

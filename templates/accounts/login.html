@@ -1,76 +1,56 @@
-{% extends 'accounts/base.html'%}
-
-{% block content %}
+{% extends 'accounts/base.html'%} {% block content %}
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>login</title>
     <style>
-        #login{
-        margin-right: 9cm;
-        background-color: aliceblue;
+        #card {
+            margin: auto;
+            width: 500px;
+            height: 300px;
+            padding: 20px;
         }
-
-
-        #card{
-            margin-top:3cm;
-            margin-bottom:5cm;
-            margin-left: 14cm;
-            margin-right: 14cm;
-            border-style: hidden;
-            background-color: aliceblue;
-            box-shadow: -7px 6px 8px #b4adad5c;
-        }
-
-        #email{
-            padding-bottom: 5px;
-            padding-top: 1cm;
-            padding-left: 1cm;
-            padding-right: 2cm;
-        }
-
-        
-
-
-
     </style>
 </head>
+
 <body>
 
-<br>
-<div id="card" class="card">
     <br>
-    <center><strong>Login</strong></center>
+    <div id="card" class="card">
+        <br>
+        <center><strong>Login</strong></center>
 
-    <form action='' method='POST'>
+        <form action='' method='POST'>
 
-        {% csrf_token %}
-        <div id="email">
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" placeholder="email">
+            {% csrf_token %}
+            <div id="email">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="email">
 
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="password">
+                </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="password">
-            </div>
-        </div>
 
-        <input type='submit' value="Submit" class="btn btn-primary">
+            <input type='submit' value="Submit" class="btn btn-primary">
 
-        <a href="{% url 'forgot_password'%}" class="float-right">Forgot Password</a>
-    </form>
+            <a href="{% url 'forgot_password'%}" class="float-right">Forgot Password</a>
+        </form>
 
 
-    {%include 'include/alert.html'%}
+        {%include 'include/alert.html'%}
 
 
-</div>
+    </div>
 </body>
+
 </html>
 
 {%endblock%}
