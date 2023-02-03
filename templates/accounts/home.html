@@ -13,15 +13,17 @@
             align-items: center;
             justify-content: space-evenly;
             background-color: rgba(9, 124, 17, 0.825);
-            height: 100px;
+            height: 75px;
             box-sizing: border-box;
             flex-wrap: wrap;
             padding: 10px;
         }
         
-        .home_search .home_input {
+        .home_search .home_input,
+        select {
             height: 50px;
             width: 425px;
+            outline: none;
             border-radius: 8px;
             padding-left: 10px;
             font-size: 1.2rem;
@@ -51,7 +53,7 @@
         
         .home_search,
         .home_profile {
-            max-width: 1225px;
+            max-width: 1146px;
             margin: auto;
             border-radius: 8px;
         }
@@ -136,11 +138,24 @@
                 <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem ipsa ullam impedit.</small>
             </div>
             <div class="home_search">
-                <input class="home_input" type="text" name="" id="" placeholder="search place">
-                <input class="home_input" type="text" name="address" id="id_address" required placeholder="All Locations">
-                <input type="hidden" name="lat" value="" id="latitude">
-                <input type="hidden" name="lng" value="" id="longitude">
-                <input class="home_botton" type="submit" value="search">
+                <form action="{% url 'search'%}" method="get">
+                    <input class="home_input" type="text" name="rest_name" id="" placeholder="search place">
+                    <input class="home_input" type="text" name="address" id="id_address" required placeholder="All Locations">
+                    <input type="hidden" name="lat" value="" id="latitude">
+                    <input type="hidden" name="lng" value="" id="longitude">
+                    <select style="width: 100px;" name="radius" id="radius" required>
+                        <option  value="" >Choose Radius</option>
+                        <option value="5">5KM</option>
+                        <option value="10">10KM</option>
+                        <option value="15">15KM</option>
+                        <option value="20">20KM</option>
+                        <option value="50">50KM</option>
+                        <option value="75">75KM</option>
+                        <option value="100">100KM</option>
+
+                    </select>
+                    <input class="home_botton" type="submit" value="search">
+                </form>
             </div>
         </div>
         <div class="home_top_tag">

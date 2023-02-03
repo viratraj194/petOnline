@@ -1,5 +1,5 @@
 from django.contrib import admin
-from.models import Cart,Tex
+from.models import Cart,Tax
 
 
 
@@ -12,4 +12,4 @@ class TaxAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Cart,CartAdmin)
-admin.site.register(Tex,TaxAdmin)
+admin.site.register(Tax,TaxAdmin)

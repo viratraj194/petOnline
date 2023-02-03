@@ -1,0 +1,311 @@
+{% extends 'accounts/base.html'%} {% block content %} {%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cover_photo {
+            position: relative;
+            height: 300px;
+        }
+        
+        .cover_photo .cover_profile {
+            margin-left: 4cm;
+            margin-top: 0px;
+            display: flex;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cover_photo .cover_profile .cover_content {
+            margin-left: 20px;
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            color: white;
+        }
+        
+        .cover_photo .cover_profile .cover_content strong {
+            font-weight: bolder;
+            font-size: 1.5rem;
+        }
+        
+        .cover_photo .cover_profile .cover_content small {
+            font-size: medium;
+        }
+        
+        .category_list h6 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            padding: 6px;
+        }
+        
+        .category_list h3 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: large;
+            padding-bottom: 10px;
+        }
+        
+        #profile_photo {
+            box-sizing: border-box;
+            border: 4px solid white;
+            border-radius: 8px;
+        }
+        
+        .cover_photo img {
+            position: relative;
+            display: inline;
+            width: 150px;
+            z-index: -1;
+            opacity: 1;
+        }
+        /* #vendor_all_category */
+        
+        .vendor_all_category {
+            flex-wrap: wrap;
+            margin: 2cm auto;
+            width: 80%;
+            justify-content: space-around;
+            box-sizing: border-box;
+        }
+        
+        .menu_title {
+            background-color: white;
+            height: 40px;
+            padding-top: 7px;
+            width: 120px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 8px 0px 0px 0px;
+            box-shadow: 0px -1px 2px rgb(204, 199, 199);
+        }
+        
+        .category {
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+        }
+        
+        #main_category {
+            background-color: white;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+        
+        #main_category small {
+            color: rgb(176, 172, 172);
+        }
+        
+        .category_food {
+            display: flex;
+            border-bottom: 1px solid rgb(195, 189, 189);
+        }
+        
+        .category_food .food_details {
+            width: 400px;
+            height: 400px;
+            margin: 30px;
+            padding: 10px;
+            border-radius: 8px;
+            position: relative;
+            border-right: 1px solid rgb(195, 189, 189);
+            box-shadow: 6px 0 4px rgb(195, 189, 189);
+        }
+        
+        .category_food .food_details .food {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+            padding: 10px;
+        }
+        
+        .add_items_to_cart {
+            padding: 10px;
+            justify-content: space-between;
+        }
+        
+        .add_items_to_cart a {
+            border: 1px solid red;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        
+        .add_items_to_cart label {
+            margin: 0 20px;
+        }
+        
+        .category_no_food {
+            text-align: center;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .category_no_food p {
+            color: #7f977f;
+        }
+        
+        .category_no_food h2 {
+            font-size: larger;
+            font-weight: bold;
+        }
+        
+        .arrow {
+            position: absolute;
+            top: 30%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            background-color: rgba(213, 211, 211, 0.711);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .left-arrow {
+            left: 20px;
+        }
+        
+        .right-arrow {
+            right: 20px;
+        }
+        
+        .food_detail h4 {
+            font-size: x-large;
+            font-weight: 700;
+        }
+        
+        .food_detail h3 {
+            font-size: large;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cover_photo" style="padding-top: 44px; padding-bottom: 176px; margin-bottom: 0px; background: url({{vendor.user_profile.cover_photo.url }}) no-repeat center / cover;">
+        <div class="cover_profile">
+            <div id="profile_photo">
+                <img id="profile" src="{{vendor.user_profile.profile_picture.url}}" alt="...">
+            </div>
+            <div class="cover_content">
+                <strong>{{vendor}}</strong>
+                <small>
+                    <i class="fa fa-location-dot"></i>  &nbsp; {{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}
+                </small>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="vendor_all_category">
+
+
+        <div class="main_category">
+            <div class="menu_title">
+                <strong style="color: rgb(205, 46, 46);"><i class="fa fa-shopping-basket"></i> &nbsp; Menu</strong>
+            </div>
+
+            <div id="main_category">
+
+
+
+                <div class="category_food">
+                    {% if food %}
+                    <div class="food_details">
+
+                        <img class="image" src="{{food.image.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
+                        <img class="image" src="{{food.image_2.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
+                        <img class="image" src="{{food.image_3.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
+                        <img class="image" src="{{food.image_4.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
+                        <img class="image" src="{{food.image_5.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
+                        <!-- <img class="image" src="{{food.image.url}}" alt="" style="border: 3px solid rgb(92, 210, 92);"> -->
+                        <!-- <img class="image" src="{{food.image.url}}" alt="" style="border: 3px solid rgb(92, 210, 92);"> -->
+
+                        <div class="arrow left-arrow">
+                            <span>&lt;</span>
+                        </div>
+                        <div class="arrow right-arrow">
+                            <span>&gt;</span>
+                        </div>
+                        <div class="add_items_to_cart mt-4">
+                            <a href="#" class="decrees_cart" data-id="{{food.id}}" data-url="{% url 'decrees_cart' food.id %}"><i class="fas fa-minus" style="color: rgb(219, 15, 15);"></i></a>
+                            <label id="qty-{{food.id}}">0 </label>
+                            <a href="#" class="add_to_cart" data-id="{{food.id}}" data-url="{% url 'add_to_cart' food.id %}"><i class=" fas fa-plus" style="color: rgb(219, 15, 15);"></i></a>
+
+                        </div>
+
+                    </div>
+                    <div class="food_detail">
+                        <div class="title">
+
+                            <div class="mt-3 mb-3">
+                                <label>Name</label>
+                                <h3 class=" text-uppercase">{{food}}</h3>
+                            </div>
+                            <div class="mt-3 mb-3">
+                                <label>Price</label>
+                                <h4 class="">₹ {{food.price}}</h4>
+                            </div>
+                            <div class="mt-3 mb-3">
+                                <label>Description</label>
+                                <p class="">{{food.description}}</p>
+                            </div>
+                            <div class="mt-3 mb-3">
+                                <label>Listed Date: </label>&nbsp;
+                                <small class="">{{food.created_at}}</small>
+                            </div>
+                            <div class="mt-3 mb-3">
+                                <label>Category</label>
+                                <h2 class="">{{food.category}}</h2>
+                            </div>
+                            <div class="mt-3 mb-3">
+                                <label>Seller Name</label>
+                                <a href="{% url 'vendor_detail' food.vendor.vendor_slug %}" class="badge badge-warning" style="color: black; background-color: rgb(222, 222, 22);">{{ food.vendor }}</a>
+                            </div>
+                        </div>
+                        <a href="{% url 'cart'%}" class=" btn btn-sm btn-success">GO TO CART</a>
+                    </div>
+                    {%endif%}
+                </div>
+
+            </div>
+
+
+        </div>
+        {% for item in cart_items%}
+        <span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}"></span> {%endfor%}
+    </div>
+
+
+    <script>
+        const images = document.querySelectorAll('.image');
+        const leftArrow = document.querySelector('.left-arrow');
+        const rightArrow = document.querySelector('.right-arrow');
+        let currentImage = 0;
+
+        images[currentImage].style.display = 'block';
+
+        leftArrow.addEventListener('click', function() {
+            images[currentImage].style.display = 'none';
+            currentImage = (currentImage - 1 + images.length) % images.length;
+            images[currentImage].style.display = 'block';
+        });
+
+        rightArrow.addEventListener('click', function() {
+            images[currentImage].style.display = 'none';
+            currentImage = (currentImage + 1) % images.length;
+            images[currentImage].style.display = 'block';
+        });
+    </script>
+
+</body>
+
+</html>
+{%endblock%}

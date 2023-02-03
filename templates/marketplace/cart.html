@@ -203,21 +203,25 @@
                 <ul>
                     <li style="list-style: none;">
                         subtotal
-                        <span>0</span>
+                        <span id="subtotal">{{subtotal}} ₹</span>
                     </li>
+                    {% for key, value in tax_dict.items %} {% for i , j in value.items%}
                     <li style="list-style: none;">
-                        tex1
-                        <span>0</span>
+                        {{key}} <small>({{i}}%)</small>
+                        <span>₹</span>
+                        <span id="tax-{{key}}">{{j}}</span>
                     </li>
-                    <li style="list-style: none;">
-                        tax2
-                        <span>0</span>
-                    </li>
+                    {%endfor%} {%endfor%}
+
+                    <!-- <li style="list-style: none;">
+                        delivery charge
+                        <span>{{delivery_charge}} ₹</span>
+                    </li> -->
                 </ul>
                 <ul>
                     <li style="list-style: none; font-weight: bold;">
                         Total
-                        <span>0</span>
+                        <span id="total">{{grand_total}} ₹</span>
                     </li>
                 </ul>
                 <a href="#" class="btn btn-success w-100 p-2 mt-3 mb-3">PROCEED TO CHECK OUT</a>

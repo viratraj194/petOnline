@@ -197,7 +197,7 @@
 
                         <img src="{{food.image.url}}" alt="" width="82" style="border: 3px solid rgb(92, 210, 92);">
                         <div class="food">
-                            <strong>{{food}}.</strong>
+                            <a href="{% url 'food_details' food.id %}"><strong>{{food}}.</strong></a>
                             <small>{{food.description}}</small>
                         </div>
                     </div>
