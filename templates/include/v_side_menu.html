@@ -9,16 +9,18 @@
     <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <title>sidebar</title>
     <style>
-        .sidebar {
+        .v-sidebar {
+            margin:20px;
             box-sizing: border-box;
             display: inline;
             width: 210px;
-            position: absolute;
-            left: 0;
-            margin-top: 2cm;
-            z-index: -1;
+            position: relative;
+            
+            
+            
+            
             float: left;
-            margin-left: 6cm;
+           
         }
         
         .unlist {
@@ -79,7 +81,7 @@
 </head>
 
 <body>
-    <div class="sidebar">
+    <div class="v-sidebar">
         <ul class="unlist">
             <li class="{% if '/accounts/vendor_account/' in  request.path or 'accounts/vendor/' == request.path %} activate {%endif%}">
                 <a href="{% url 'vendor_account'%}"><i class="fa fa-home"></i> &nbsp; Dashboard</a>

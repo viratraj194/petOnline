@@ -1,0 +1,306 @@
+{% extends 'accounts/base.html'%} {% block content %} {%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .category_list h6 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            padding: 6px;
+        }
+        
+        .category_list h3 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: large;
+            padding-bottom: 10px;
+        }
+        /* #vendor_all_category */
+        
+        .vendor_all_category {
+            display: flex;
+            flex-wrap: wrap;
+            width: 80%;
+            margin: 2cm auto;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        
+        .menu_title {
+            background-color: white;
+            height: 40px;
+            padding-top: 10px;
+            width: 160px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 8px 0px 0px 0px;
+            box-shadow: 0px -1px 2px rgb(204, 199, 199);
+        }
+        
+        .menu_title:hover strong {
+            border-bottom: 2px solid rgb(5, 103, 13);
+        }
+        
+        .category {
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+        }
+        
+        #main_category {
+            background-color: white;
+            margin-right: 20px;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+        
+        #main_category form {
+            padding: 20px;
+        }
+        
+        .d_flex {
+            display: flex;
+        }
+        
+        .space_between {
+            justify-content: space-between;
+        }
+        
+        .d_col {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .d_col input {
+            height: 35px;
+            outline: none;
+            border: 1px solid rgb(222, 216, 216);
+            padding: 10px;
+            width: 250px;
+            color: rgb(162, 157, 157);
+        }
+        
+        .address input {
+            width: 100%;
+        }
+        
+        #main_category small {
+            color: rgb(176, 172, 172);
+        }
+        
+        .category_food {
+            display: flex;
+            margin: 10px auto;
+            justify-content: space-between;
+            border-bottom: 1px solid rgb(195, 189, 189);
+        }
+        
+        .category_food .food_details {
+            display: flex;
+            padding: 10px;
+        }
+        
+        .add_items_to_cart {
+            display: flex;
+            padding: 10px;
+            justify-content: space-between;
+        }
+        
+        .add_items_to_cart a {
+            border: 1px solid red;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        
+        .add_items_to_cart label {
+            margin: 0 20px;
+        }
+        
+        .category_no_food {
+            text-align: center;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .category_no_food p {
+            color: #7f977f;
+        }
+        
+        .category_no_food h2 {
+            font-size: larger;
+            font-weight: bold;
+        }
+        /* texs */
+        
+        .taxs {
+            background-color: white;
+            padding: 20px;
+        }
+        /* .taxs ul li {
+            display: block;
+            width: 300px;
+            margin: 10px;
+        } */
+        
+        .taxs ul li span {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="vendor_all_category">
+
+        <div class="main_category" style="width: 50%; ">
+            <div class="menu_title">
+                <strong style="color: rgb(5, 103, 13);"><i class="fa fa-shopping-basket"></i> &nbsp; Billing Details</strong>
+            </div>
+
+            <div id="main_category">
+
+                <form action="" method="POST">
+                    {%csrf_token%}
+                    <div class="name d_flex space_between">
+                        <div class=" d_col">
+                            <label for="">First Name:</label>
+                            <span>{{form.first_name}}</span>
+
+                        </div>
+                        <div class=" d_col">
+                            <label for="">Last Name:</label>
+                            <span>{{form.last_name}}</span>
+
+                        </div>
+
+
+                    </div>
+                    <div class="contact d_flex space_between">
+                        <div class=" d_col">
+                            <label for="">Phone Number:</label>
+                            <span>{{form.phone}}</span>
+
+                        </div>
+                        <div class=" d_col">
+                            <label for="">Email Address:</label>
+                            <span>{{form.email}}</span>
+
+                        </div>
+
+                    </div>
+                    <div class="address">
+                        <div class="d_col">
+                            <label for="">Address:</label>
+                            <span>{{form.address}}</span>
+                        </div>
+
+                    </div>
+                    <div class="country d_flex space_between">
+                        <div class=" d_col">
+                            <label for="">Country:</label>
+                            <span>{{form.country}}</span>
+
+                        </div>
+                        <div class=" d_col">
+                            <label for="">State:</label>
+                            <span> {{form.state}}</span>
+
+                        </div>
+                    </div>
+                    <div class="city d_flex space_between">
+                        <div class=" d_col">
+                            <label for="">City:</label>
+                            <span>{{form.city}}</span>
+
+                        </div>
+                        <div class="d_col">
+                            <label for="">Pin Code:</label>
+                            <span>{{form.pin_code}}</span>
+
+                        </div>
+
+                    </div>
+                </form>
+
+                <ul>
+
+                </ul> {% for item in cart_items%}
+                <span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}"></span> {%endfor%}
+            </div>
+
+
+        </div>
+        <div class="category_list" style="width: 35%;">
+            <div class="menu_title">
+                <strong style="color:  rgb(5, 103, 13);"><i class="fa fa-shopping-basket"></i> &nbsp; Your Order</strong>
+            </div>
+            <div class="taxs">
+                <ul>
+                    {% for item in cart_item%}
+
+                    <li id="cart-item-{{item.id}}">
+                        <div class="category_food">
+
+                            <div class="food_details">
+                                <div class="image-holder " style=" overflow: hidden;">
+                                    <img src="{{item.fooditem.image.url}}" width="90" alt="" style=" border: 3px solid rgb(92, 210, 92);">
+
+                                </div>
+                                <div class="food ml-3">
+                                    <strong>{{item.fooditem}}.</strong>
+                                    <small>{{item.fooditem.description}}</small>
+                                    <a href="{% url 'vendor_detail' item.fooditem.vendor.vendor_slug %}" class="badge badge-warning" style="color: black; background-color: rgb(222, 222, 22);">{{ item.fooditem.vendor }}</a>
+                                </div>
+                            </div>
+                            <div class="add_items_to_cart">
+                                <div class="quantity" style="display: inline-block; position: absolute;"><span>{{item.quantity}} QTY</span></div>
+                                <div class="price-holder" style="margin-left: 50px;">
+                                    <span class="price">₹{{item.fooditem.price}}</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                    {%endfor%}
+                    <hr>
+                    <li style="list-style: none;">
+                        subtotal
+                        <span id="subtotal">{{subtotal}} ₹</span>
+                    </li>
+                    {% for key, value in tax_dict.items %} {% for i , j in value.items%}
+                    <li style="list-style: none;">
+                        {{key}} <small>({{i}}%)</small>
+                        <span>₹</span>
+                        <span id="tax-{{key}}">{{j}}</span>
+                    </li>
+                    {%endfor%} {%endfor%}
+
+                    <!-- <li style="list-style: none;">
+                        delivery charge
+                        <span>{{delivery_charge}} ₹</span>
+                    </li> -->
+                </ul>
+                <ul>
+                    <li style="list-style: none; font-weight: bold;">
+                        Total
+                        <span id="total">{{grand_total}} ₹</span>
+                    </li>
+                </ul>
+                <a href="#" class="btn btn-success w-100 p-2 mt-3 mb-3">PROCEED TO CHECK OUT</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+{%endblock%}

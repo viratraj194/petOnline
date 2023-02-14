@@ -1,4 +1,4 @@
-{%load static %}
+<!-- {%load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,98 +6,112 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
     <style>
         .footer {
-            background-color: green;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            height: 200px;
-            position: absolute;
-            bottom: 0px;
-            width: 100%;
+            position: static;
+            left: 0;
+            bottom: 0;
+            z-index: -1;
         }
-        /*         
-        .footer::before {
-            background-color: green;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            height: 200px;
-            position: fixed;
-            width: 100%;
-            bottom: 100%;
-            top: 100%;
-        } */
         
-        .footer_sub {
+        .footer p {
+            z-index: 1;
+        }
+        
+        .footer_title {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
             justify-content: center;
-        }
-        
-        .footer_sub h1 {
-            font-size: xx-large;
-        }
-        
-        .footer_sub input {
-            height: 40px;
-            border-radius: 8px;
-            outline: none;
-            color: black;
-        }
-        
-        #copyright {
-            border-top: 2px solid white;
-            margin: 10px auto;
             align-items: center;
-            justify-content: center;
         }
         
-        #copyright a {
-            color: gray;
-            font-weight: bold;
+        .footer_title .f_title h5 {
+            color: #13b613;
+            font-size: 35px;
+            font-weight: 800;
+            font-family: sans-serif;
         }
         
-        #copyright a:hover {
-            color: gray;
-            font-weight: bold;
-            list-style: armenian;
+        .footer_title .f_title {
+            margin: 0 66px;
+            border-bottom: 3px solid white;
+            padding-bottom: 10px;
         }
         
-        .sub_input {
-            width: 600px;
-            padding-left: 10px;
+        .footer_title .f_title h2 {
+            color: white;
+            font-weight: 800;
+            font-size: 49px;
+            font-family: sans-serif;
         }
         
-        .sub_button {
-            background-color: rgb(108, 110, 111);
-            width: 100px;
+        .f {
+            padding: 20px;
+            font-size: 30px;
+            width: 30px;
+            text-align: center;
+            text-decoration: none;
+            margin: 5px 2px;
+            border-radius: 50%;
+        }
+        
+        .fa:hover {
+            opacity: 1;
+        }
+        
+        .social a {
+            width: 70px;
+        }
+        
+        .f_logo {
+            border-right: 3px solid white;
+            padding-right: 10px;
+        }
+        
+        .fa-twitter {
+            background: #55ACEE;
+            color: white;
+        }
+        
+        .fa-linkedin {
+            background: #007bb5;
+            color: white;
+        }
+        
+        .fa-instagram {
+            background: #125688;
+            color: white;
+        }
+        
+        .fa-github {
+            background: black;
+            color: white;
         }
     </style>
 </head>
 
 <body>
-    <div class="footer" id="footer">
-
-        <div class="footer_sub">
-            <h1>
-                <strong>SUBSCRIBE TO OUR NEWSLETTER</strong>
-            </h1>
-
-            <div>
-                <input class="sub_input" type="email" name="email" placeholder="Subscribe">
-                <input class="sub_button" type="button" value="SIGN UP" style=" color: white;">
+    <footer>
+        <div class="footer cs-nomargin " style="padding-top: 44px; padding-bottom: 176px; margin-bottom: 0px; background: url({% static 'img/footer_bg1.png'%}) no-repeat center / cover;">
+            <div class="footer_title">
+                <div class="f_title">
+                    <h5> O N L I N E</h5>
+                    <h2> P E T &nbsp; S T O R E</h2>
+                </div>
+                <div class="f_logo">
+                    <img src="{% static 'logo/logo2.png'%}" width="300" alt="Logo">
+                </div>
             </div>
-
-            <div id="copyright">
-                <h5>©2022 PETonline All Right Received</h5>
-                <strong>Developed By</strong><a href="#"> Virat Raj</a>
+            <div class="social">
+                <a href="#" class="f fa fa-twitter"></a>
+                <a href="#" class="f fa fa-linkedin"></a>
+                <a href="#" class="f fa fa-instagram"></a>
+                <a href="#" class="f fa fa-github"></a>
             </div>
         </div>
-    </div>
+    </footer>
 </body>
 
-</html>
+</html> -->

@@ -1,27 +1,134 @@
-{% extends 'accounts/base.html'%}
-
-{% block content %}
+{% extends 'accounts/base.html'%} {% block content %}
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>cust_account</title>
     <style>
-
- 
+        .cus_dashboard {
+            display: flex;
+            width: 80%;
+            margin: auto;
+        }
+        
+        .dashboard {
+            background-color: white;
+            width: 900px;
+            padding: 20px;
+            margin: 20px;
+        }
+        
+        .order_count {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 20px;
+        }
+        
+        .bg_gray {
+            background-color: rgba(241, 235, 235, 0.622);
+        }
+        
+        .order_count .total_order {
+            border: 1px solid silver;
+            width: 200px;
+            height: 100px;
+            border-radius: 8px;
+        }
+        
+        .order_head {
+            border-bottom: 1px solid silver;
+            padding: 10px 0;
+        }
+        
+        .order_count .cust_id {
+            border: 1px solid silver;
+            width: 400px;
+            height: 100px;
+            border-radius: 8px;
+        }
+        
+        .order_count .cust_id {
+            border: 1px solid silver;
+            width: 400px;
+            height: 100px;
+            border-radius: 8px;
+        }
+        
+        .order_body {
+            padding: 10px 0;
+        }
     </style>
 </head>
+
 <body>
 
-{% include 'include/c_cover.html'%}
+    {% include 'include/c_cover.html'%} {%include 'include/alert.html'%}
+    <div class="cus_dashboard">
+        <div class="sidebar">
+            {%include 'include/c_sidebar.html'%}
 
-{%include 'include/alert.html'%}
+        </div>
+        <div class="dashboard">
+            <div class="order_details">
+                <div class="title text-uppercase" style="font-size: larger; font-weight: bolder;">
+                    OVERVIEW
+                </div>
+                <div class="order_count">
+                    <div class="total_order text-center">
+                        <div class="order_head bg_gray">Total Order</div>
+                        <div class="order_body">0</div>
+                    </div>
+                    <div class="cust_id text-center">
+                        <div class="order_head bg_gray">logged in as: <strong>{{user.email}}</strong> </div>
+                        <div class="order_body"><i class="fa fa-edit"></i>&nbsp; <strong>Edit Profile</strong></div>
+                    </div>
+                </div>
 
-{%include 'include/c_sidebar.html'%}
-{%include 'include/table.html'%}
+            </div>
+            <div class="order_detail">
+                <div class="title text-uppercase" style="font-size: larger; font-weight: bolder;">
+                    RECENT ORDERS
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td colspan="2">Larry the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
 
 
 </body>
+
 </html>
 
 

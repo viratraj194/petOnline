@@ -1,0 +1,165 @@
+{% extends 'accounts/base.html'%} {% block content %} {%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        img {
+            width: 150px;
+        }
+        
+        .v_profile {
+            box-sizing: border-box;
+            position: relative;
+            width: 800px;
+            float: right;
+            margin-right: 2cm;
+            margin-top: 20px;
+            margin-bottom: 2cm;
+            padding: 10px;
+            background-color: white;
+        }
+        
+        .v_profile form {
+            padding: 10px;
+        }
+        
+        .documents {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .documents input {
+            outline: none;
+            height: 35px;
+            border: 1px solid rgb(211, 208, 208);
+            border-radius: 6px;
+            padding-left: 10px;
+        }
+        
+        #profile_picture {
+            display: flex;
+            padding: 20px;
+        }
+        
+        .profile_picture {
+            border: 3px solid rgb(211, 208, 208);
+            border-radius: 8px;
+        }
+        
+        .profile_picture img {
+            border-radius: 8px;
+        }
+        
+        #user_picture {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+        }
+        
+        .cus_dashboard {
+            justify-content: space-between;
+            display: flex;
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'include/c_cover.html'%}
+    <div>
+        <div>
+
+
+        </div>
+        <div class="cus_dashboard">
+            <div>
+                {%include 'include/c_sidebar.html'%}
+            </div>
+
+            <div class="v_profile">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {%csrf_token%}
+
+                    <div id="profile_picture">
+                        <div class="profile_picture">
+                            {% if profile.profile_picture %}
+                            <img src="{{profile.profile_picture.url}}" alt="..."> {% else %}
+                            <img src="{% static 'img/default-profile.PNG' %}" alt="..."> {% endif %}
+                        </div>
+                        <div id="user_picture">
+                            <label class="form-label">Profile Picture *</label>{{profile_form.cover_photo}}
+                        </div>
+                    </div>
+                    <div id="profile_picture">
+                        <div class="profile_picture">
+                            {% if profile.cover_photo %}
+                            <img src="{{profile.cover_photo.url}}" alt=""> {% else %}
+                            <img src="{% static 'img/bg-image2.jpg' %}" alt=""> {% endif %}
+                        </div>
+
+                        <div id="user_picture">
+                            <label class="form-label">Cover Photo *</label>{{profile_form.profile_picture}}
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div>
+                        <div class="documents" style="margin-top: 1cm;">
+                            <label>First Name *</label>{{user_form.first_name}}
+                        </div>
+                        <div class="documents" style="margin-top: 1cm;">
+                            <label>Last Name *</label>{{user_form.last_name}}
+                        </div>
+                        <div class="documents" style="margin-top: 1cm;">
+                            <label>Phone *</label>{{user_form.phone_number}}
+                        </div>
+
+                        <div class="documents" style="margin-top: 1cm;">
+                            <label>Address *</label>{{profile_form.address}}
+                            <small class="text-muted float-right" style="margin-top: 29px;">Powered by Google</small>
+                        </div>
+
+                        <div class="documents" style="margin-top: 1cm;">
+                            <label>Country *</label>{{profile_form.country}}
+                        </div>
+                        <div class="documents" style="margin-top: 1cm;">
+                            <label>State *</label>{{profile_form.state}}
+                        </div>
+
+
+                        <div class="documents" style="margin-top: 1cm;">
+                            <label>City *</label>{{profile_form.city}}
+                        </div>
+                        <div class="documents" style="margin-top: 1cm;">
+                            <label>Pin Code *</label>{{profile_form.pin_code}}
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="    width: 25%;
+                         margin-top: 1cm;">Update Profile
+                     </button>
+
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+
+{%endblock%}

@@ -106,8 +106,9 @@
         }
         
         .category_food .food_details {
-            width: 400px;
+            width: 424px;
             height: 400px;
+            overflow: hidden;
             margin: 30px;
             padding: 10px;
             border-radius: 8px;
@@ -220,11 +221,14 @@
                     {% if food %}
                     <div class="food_details">
 
-                        <img class="image" src="{{food.image.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
-                        <img class="image" src="{{food.image_2.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
-                        <img class="image" src="{{food.image_3.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
-                        <img class="image" src="{{food.image_4.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
-                        <img class="image" src="{{food.image_5.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
+                        <div style="width: 405px; height: 258px; overflow: hidden; ">
+                            <img class="image" src="{{food.image.url}}" alt="" style="display: none;  border: 3px solid rgb(92, 210, 92);">
+                            <img class="image" src="{{food.image_2.url}}" alt="" style="display: none;  border: 3px solid rgb(92, 210, 92);">
+                            <img class="image" src="{{food.image_3.url}}" alt="" style="display: none;  border: 3px solid rgb(92, 210, 92);">
+                            <img class="image" src="{{food.image_4.url}}" alt="" style="display: none; border: 3px solid rgb(92, 210, 92);">
+                            <img class="image" src="{{food.image_5.url}}" alt="" style="display: none;  border: 3px solid rgb(92, 210, 92);">
+
+                        </div>
                         <!-- <img class="image" src="{{food.image.url}}" alt="" style="border: 3px solid rgb(92, 210, 92);"> -->
                         <!-- <img class="image" src="{{food.image.url}}" alt="" style="border: 3px solid rgb(92, 210, 92);"> -->
 

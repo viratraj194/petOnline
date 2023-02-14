@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse,JsonResponse
 from .context_processors import get_cart_amount, get_cart_counter
@@ -6,6 +6,8 @@ from marketplace.models import Cart
 from vendor.models import Vendor
 from menu.models import Category,FoodItem
 from django.db.models import Prefetch
+from accounts.models import UserProfile
+from orders.forms import OrderForm
 
 def marketplace(request):
     vendors = Vendor.objects.filter(is_approved=True, user__is_active=True)
@@ -121,4 +123,48 @@ def delete_cart(request,cart_id):
         return JsonResponse({'status':'failed','message':'please login to continue'})
 
 def search(request):
-    return HttpResponse('search page')
+    # address = request.GET['address']
+    latitude = request.GET['lat']
+    longitude = request.GET['lng']
+    radius = request.GET['radius']
+    r_name = request.GET['rest_name']
+
+    #get vendor by food item
+    get_vendor_by_fooditem = FoodItem.objects.filter(food_title__icontains = r_name,is_available= True).values_list('vendor',flat=True)
+    print(get_vendor_by_fooditem)
+    vendors = Vendor.objects.filter(vendor_name__icontains = r_name,user__is_active = True,is_approved = True)
+    vendor_count = vendors.count()
+    context = {
+        'vendors':vendors,
+        'vendor_count':vendor_count
+    }
+
+    print(latitude,longitude,radius,r_name)
+    return render(request,'marketplace/listing.html',context)
+
+
+@login_required(login_url='login')
+def checkout(request):
+    cart_item = Cart.objects.filter(user=request.user).order_by('created_at')
+    cart_count = cart_item.count()
+    if cart_count <= 0:
+        return redirect('marketplace')
+    user_profile = UserProfile.objects.get(user = request.user)
+    default_value = {
+        'first_name':request.user.first_name,
+        'last_name':request.user.last_name,
+        'phone':request.user.phone_number,
+        'email':request.user.email,
+        'address':user_profile.address,
+        'country':user_profile.country,
+        'state':user_profile.state,
+        'city':user_profile.city,
+        'pin_code':user_profile.pin_code
+
+    }
+    form = OrderForm(initial=default_value)
+    context = {
+        'form':form,
+        'cart_item':cart_item,
+    }
+    return render(request,'marketplace/checkout.html',context)
