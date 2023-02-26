@@ -1,5 +1,5 @@
 {% extends 'accounts/base.html'%} {% block content %} {%load static %}
-<!DOCTYPE html>
+<DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -163,8 +163,7 @@
             </div>
 
             <div id="main_category">
-
-                <form action="" method="POST">
+                <form action="{%url 'place_order'%}" method="post">
                     {%csrf_token%}
                     <div class="name d_flex space_between">
                         <div class=" d_col">
@@ -221,16 +220,9 @@
                         <div class="d_col">
                             <label for="">Pin Code:</label>
                             <span>{{form.pin_code}}</span>
-
                         </div>
-
                     </div>
-                </form>
 
-                <ul>
-
-                </ul> {% for item in cart_items%}
-                <span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}"></span> {%endfor%}
             </div>
 
 
@@ -293,8 +285,27 @@
                         Total
                         <span id="total">{{grand_total}} ₹</span>
                     </li>
+                    <h4 style="font-weight: bolder;" class="mt-2">SELECT THE PAYMENT METHOD</h4>
+                    <div class="payment_method mt-3 mb-3">
+                        <label>
+                            <input type="radio" name="payment_method" value="PayPal">
+                            <img src="{%static 'images/PayPal.png'%}" alt="PayPal" width="100">
+                        </label> &ensp;
+                        
+                        <label>
+                            <input type="radio" name="payment_method" value="RazorPay">
+                            <img src="{%static 'img/razorpay_logo.png'%}" alt="RazorPay" width="100">
+                        </label>
+                        <label>
+                            <input type="radio" name="payment_method" value="CashOnDelivery">
+                            <img src="{%static 'img/cod.png'%}" alt="Cash On Delivery" width="100" height="20">
+                        </label>
+                    </div>
+                    <span class="text-danger" id="payment-method-error"></span>
+
+                    <button onclick="return payMethodConform()" type="submit" class="btn btn-success w-100 p-2 mt-3 mb-3">PLACE ORDER</button>
                 </ul>
-                <a href="#" class="btn btn-success w-100 p-2 mt-3 mb-3">PROCEED TO CHECK OUT</a>
+                </form>
             </div>
 
         </div>
@@ -303,4 +314,25 @@
 </body>
 
 </html>
+
+<script>
+    function payMethodConform() {
+        var payMethod = $("input[name='payment_method']:checked").val()
+        if (!payMethod) {
+            $('#payment-method-error').html("select payment method");
+            return false;
+        } else {
+            var conf = confirm('you have selected ' + payMethod + 'as your preferred payment method.\nclick"OK" to continue.')
+            if (conf == true) {
+                return true
+
+            } else
+                return false;
+        }
+
+    }
+    $("input[name='payment_method']").on('change', function() {
+        $('#payment-method-error').html("");
+    })
+</script>
 {%endblock%}

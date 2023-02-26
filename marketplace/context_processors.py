@@ -39,5 +39,5 @@ def get_cart_amount(request):
             for x in key.values():
                 tax = tax + x
         grand_total = subtotal + tax 
-    print(tax_dict)    
+     
     return dict(subtotal=subtotal,tax=tax,grand_total=grand_total,tax_dict = tax_dict,delivery_charge=delivery_charge)

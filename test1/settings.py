@@ -70,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'accounts.context_processors.get_vendor',
                 'accounts.context_processors.get_google_api',
+                'accounts.context_processors.get_paypal_clint_id',
                 'marketplace.context_processors.get_cart_counter',
                 'marketplace.context_processors.get_cart_amount',
             ],
@@ -141,11 +142,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'rajdangotest@gmail.com'
-EMAIL_HOST_PASSWORD = 'zwjdbqhxrhpqdzbr'
+EMAIL_HOST_USER = 'rajofficial513@gmail.com'
+EMAIL_HOST_PASSWORD = 'qxqmxsywxvpqxgmx'
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'foodonline Marketplace <rajdangotest@gmail.com>'
+DEFAULT_FROM_EMAIL = 'online Pet store  <rajofficial513@gmail.com>'
+
+
 GOOGLE_API_KEY = 'AIzaSyDDnv36aSn8Ksv2FNb_YR-HPlsue0VGr-s'
 
+PAYPAL_CLINT_ID = 'AXWy_ZDdOgaFLxk_bOPwy4P0AW0jEq4SCyrMpMZfLtz_9FldELjQWHxLkBhhgvLHHjlVUNY_P-h9dndl'
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
+
+
+RZP_KEY_ID = 'rzp_test_Jx11cdnCF42nou'
+RZP_KEY_SECRET = '3fsd5NMd9XxfsJUdphJfhsqr'

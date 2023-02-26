@@ -12,3 +12,7 @@ def get_vendor(request):
 def get_google_api(request):
 
     return {'GOOGLE_API_KEY': settings.GOOGLE_API_KEY}
+
+
+def get_paypal_clint_id(request):
+    return{'PAYPAL_CLINT_ID':settings.PAYPAL_CLINT_ID}

@@ -1,0 +1,433 @@
+{% extends 'accounts/base.html'%} {% block content %} {%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .category_list h6 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            padding: 6px;
+        }
+        
+        .category_list h3 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: large;
+            padding-bottom: 10px;
+        }
+        /* #vendor_all_category */
+        
+        .vendor_all_category {
+            display: flex;
+            flex-wrap: wrap;
+            width: 80%;
+            margin: 2cm auto;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        
+        .menu_title {
+            background-color: white;
+            height: 40px;
+            padding-top: 10px;
+            width: 160px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 8px 0px 0px 0px;
+            box-shadow: 0px -1px 2px rgb(204, 199, 199);
+        }
+        
+        .menu_title:hover strong {
+            border-bottom: 2px solid rgb(5, 103, 13);
+        }
+        
+        .category {
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+        }
+        
+        #main_category {
+            background-color: white;
+            margin-right: 20px;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+        
+        #main_category form {
+            padding: 20px;
+        }
+        
+        .d_flex {
+            display: flex;
+        }
+        
+        .space_between {
+            justify-content: space-between;
+        }
+        
+        .d_col {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .d_col input {
+            height: 35px;
+            outline: none;
+            border: 1px solid rgb(222, 216, 216);
+            padding: 10px;
+            width: 250px;
+            color: rgb(162, 157, 157);
+        }
+        
+        .address input {
+            width: 100%;
+        }
+        
+        #main_category small {
+            color: rgb(176, 172, 172);
+        }
+        
+        .category_food {
+            display: flex;
+            margin: 10px auto;
+            justify-content: space-between;
+            border-bottom: 1px solid rgb(195, 189, 189);
+        }
+        
+        .category_food .food_details {
+            display: flex;
+            padding: 10px;
+        }
+        
+        .category_food .food_details .food {
+            display: flex;
+            flex-direction: column;
+            /* padding: 10px; */
+        }
+        
+        .add_items_to_cart {
+            display: flex;
+            padding: 10px;
+            justify-content: space-between;
+        }
+        
+        .add_items_to_cart a {
+            border: 1px solid red;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        
+        .add_items_to_cart label {
+            margin: 0 20px;
+        }
+        
+        .category_no_food {
+            text-align: center;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .category_no_food p {
+            color: #7f977f;
+        }
+        
+        .category_no_food h2 {
+            font-size: larger;
+            font-weight: bold;
+        }
+        /* texs */
+        
+        .taxs {
+            background-color: white;
+            padding: 20px;
+        }
+        /* .taxs ul li {
+            display: block;
+            width: 300px;
+            margin: 10px;
+        } */
+        
+        .taxs ul li span {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="vendor_all_category">
+
+        <div class="main_category" style="width: 50%; ">
+            <div class="menu_title">
+                <strong style="color: rgb(5, 103, 13);"><i class="fa fa-shopping-basket"></i> &nbsp; Billing Details</strong>
+            </div>
+
+            <div id="main_category">
+                <div class="billing-address" style="padding-left: 10px;">
+                    <div><b>{{order.name}}</b></div>
+                    <div>{{order.address}}</div>
+                    <div>{{order.city}} - {{order.pin_code}}</div>
+                    <div>{{order.state}}, {{order.country}}</div>
+                    <div><b>Phone: {{order.user.phone}}</b></div>
+                    <div><b>Email: {{order.user.email}}</b></div>
+                    <div><b>Payment: {{order.payment_method}}</b></div>
+                    <br>
+                    <div>
+                        <a href="{% url 'checkout'%}" class="btn btn-outline-danger mb-3">Edit</a>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="category_list" style="width: 35%;">
+            <div class="menu_title">
+                <strong style="color:  rgb(5, 103, 13);"><i class="fa fa-shopping-basket"></i> &nbsp; Your Order</strong>
+            </div>
+            <div class="taxs">
+                <ul>
+                    {% for item in cart_items %}
+
+                    <li id="cart-item-{{item.id}}">
+                        <div class="category_food">
+
+                            <div class="food_details">
+                                <div class="image-holder " style=" overflow: hidden;">
+                                    <img src="{{item.fooditem.image.url}}" width="90" alt="" style=" border: 3px solid rgb(92, 210, 92);">
+
+                                </div>
+                                <div class="food ml-3">
+                                    <strong>{{item.fooditem}}.</strong>
+                                    <small>{{item.fooditem.description}}</small>
+                                    <a href="{% url 'vendor_detail' item.fooditem.vendor.vendor_slug %}" class="badge badge-warning" style="color: black; background-color: rgb(222, 222, 22);">{{ item.fooditem.vendor }}</a>
+                                </div>
+                            </div>
+                            <div class="add_items_to_cart">
+                                <div class="quantity" style="display: inline-block; position: absolute;"><span>{{item.quantity}} QTY</span></div>
+                                <div class="price-holder" style="margin-left: 50px;">
+                                    <span class="price">₹{{item.fooditem.price}}</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                    {%endfor%}
+                    <hr>
+                    <li style="list-style: none;">
+                        subtotal
+                        <span id="subtotal">{{subtotal}} ₹</span>
+                    </li>
+                    {% for key, value in tax_dict.items %} {% for i , j in value.items%}
+                    <li style="list-style: none;">
+                        {{key}} <small>({{i}}%)</small>
+                        <span>₹</span>
+                        <span id="tax-{{key}}">{{j}}</span>
+                    </li>
+                    {%endfor%} {%endfor%}
+
+                    <!-- <li style="list-style: none;">
+                        delivery charge
+                        <span>{{delivery_charge}} ₹</span>
+                    </li> -->
+                </ul>
+                <ul>
+                    <li style="list-style: none; font-weight: bold;">
+                        Total
+                        <span id="total">{{grand_total}} ₹</span>
+                    </li>
+
+                    <span class="text-danger" id="payment-method-error"></span>
+                    <!-- pay pal button  -->
+                    <!--  paypal checkout button  -->
+
+                    {% if order.payment_method == 'RazorPay' %}
+                    <div id="rzp_payment_button">
+                        <button class="btn btn-danger w-100 p-2" id="rzp-button1">Pay With RazorPay</button>
+                        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                    </div>
+                    {% elif order.payment_method == 'PayPal'%}
+                    <!-- paypal checkout button  -->
+                    <div id="paypal-button-container"></div>
+                    {%elif order.payment_method == 'CashOnDelivery'%}
+                    <button id="CashOnDelivery" class="btn btn-danger w-100 p-2">PLACE ORDER</button> {% endif %}
+                </ul>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var grand_total = "{{grand_total}}"
+
+    var order_number = "{{order.order_number}}"
+    const csrftoken = getCookie('csrftoken');
+    var order_complete = "{% url 'order_complete' %}"
+    paypal.Buttons({
+
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: grand_total
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                // Successful capture! For demo purposes:
+                console.log(orderData)
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                console.log(transaction.id)
+
+                var transaction_id = transaction.id
+                var status = orderData.status
+                var payment_method = 'PayPal'
+                sendTransaction(transaction_id, payment_method, status)
+
+
+
+                // Replace the above to show a success message within this page, e.g.
+                const element = document.getElementById('paypal-button-container');
+                element.innerHTML = '';
+                element.innerHTML = '<h4 class="text-center"><i class="fa fa-spinner fa-spin"></i> Please wait..</h4>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+
+    // razor pay payment geatway
+
+
+
+
+    var url = "{% url 'payments' %}"
+
+    function sendTransaction(transaction_id, payment_method, status) {
+        $.ajax({
+            type: 'POST',
+            url: "{%url 'payments'%}",
+            data: {
+                'order_number': order_number,
+                'transaction_id': transaction_id,
+                'payment_method': payment_method,
+                'status': status,
+                'csrfmiddlewaretoken': csrftoken,
+            },
+            success: function(response) {
+                console.log('response==>', response)
+                window.location.href = order_complete + '?order_no=' + response.order_number + '&trans_id=' + response.transaction_id
+            }
+        })
+    }
+</script>
+
+<script>
+    var options = {
+        "key": "{{RZP_KEY_ID}}", // Enter the Key ID generated from the Dashboard
+        "amount": "{{rzp_amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Acme Corp", //your business name
+        "description": "Test Transaction",
+        "image": "{% static 'logo/logo2.png'%}",
+        "order_id": "{{rzp_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function(response) {
+            // alert(response.razorpay_payment_id);
+            // alert(response.razorpay_order_id);
+            // alert(response.razorpay_signature)
+
+            // Replace the above to show a success message within this page, e.g.
+            const element = document.getElementById('rzp_payment_button');
+            element.innerHTML = '';
+            element.innerHTML = '<h4 class="text-center"><i class="fa fa-spinner fa-spin"></i> Please wait..</h4>';
+            // Or go to another URL:  actions.redirect('thank_you.html');
+
+            var transaction_id = response.razorpay_payment_id
+            var payment_method = 'RazorPay'
+            var status = 'Success'
+            sendTransaction(transaction_id, payment_method, status)
+
+
+        },
+        "prefill": {
+            "name": "{{order.name}}",
+            "email": "{{order.email}}",
+            "contact": "{{order.phone}}"
+        },
+        "notes": {
+            "address": "{{order.address}}"
+        },
+        "theme": {
+            "color": "#c33332"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function(response) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+    });
+    document.getElementById('rzp-button1').onclick = function(e) {
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
+<!-- cash on delivery -->
+
+<!-- <script>
+    $(document).ready(function() {
+        $('#CashOnDelivery').on('click', function(e) {
+            e.preventDefault();
+
+
+            var transaction_id = 'nul'
+            var status = 'success'
+            var payment_method = 'PayPal'
+            sendTransaction(transaction_id, payment_method, status)
+
+
+
+        })
+    });
+</script> -->
+{%endblock%}
