@@ -363,7 +363,7 @@
         "key": "{{RZP_KEY_ID}}", // Enter the Key ID generated from the Dashboard
         "amount": "{{rzp_amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
-        "name": "Acme Corp", //your business name
+        "name": "Online Pet store", //your business name
         "description": "Test Transaction",
         "image": "{% static 'logo/logo2.png'%}",
         "order_id": "{{rzp_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -394,7 +394,7 @@
             "address": "{{order.address}}"
         },
         "theme": {
-            "color": "#c33332"
+            "color": "#0ea013"
         }
     };
     var rzp1 = new Razorpay(options);
@@ -414,20 +414,39 @@
 </script>
 <!-- cash on delivery -->
 
-<!-- <script>
-    $(document).ready(function() {
-        $('#CashOnDelivery').on('click', function(e) {
-            e.preventDefault();
+<script>
+    // Get the case on delivery button element
+    const codButton = document.getElementById("CashOnDelivery");
+
+    // Attach a click event listener to the button
+    codButton.addEventListener("click", function() {
+        // Generate a random transaction ID
+        const transactionId = generateTransactionId(15);
+        // Log the transaction ID to the console
+        // console.log("Transaction ID: " + transactionId);
+        // Add any additional code here to handle the case on delivery payment method
 
 
-            var transaction_id = 'nul'
-            var status = 'success'
-            var payment_method = 'PayPal'
-            sendTransaction(transaction_id, payment_method, status)
+        var status = 'success'
+        var payment_method = 'CashOnDelivery'
+        sendTransaction(transactionId, payment_method, status)
 
 
 
-        })
+        // Replace the above to show a success message within this page, e.g.
+        const element = document.getElementById('CashOnDelivery');
+        element.innerHTML = '';
+        element.innerHTML = '<h4 class="text-center"><i class="fa fa-spinner fa-spin"></i> Please wait..</h4>';
+        // Or go to another URL:  actions.redirect('thank_you.html');
     });
-</script> -->
+    // function to generate a random transaction ID with the specified length
+    function generateTransactionId(length) {
+        let result = "";
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+</script>
 {%endblock%}
