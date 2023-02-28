@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
+from orders.models import Order
 
 from vendor.models import Vendor
 from .forms import UserForm
@@ -168,7 +169,15 @@ def vendor_account(request):
 @login_required(login_url='login')
 @user_passes_test(check_user_role_for_cost)
 def cust_account(request):
-    return render(request, 'accounts/cust_account.html')
+    orders = Order.objects.filter(user = request.user,is_ordered = True)
+    recent_orders = orders[:5]
+
+    context = {
+        'orders':orders,
+        'orders_count':orders.count(),
+        'recent_orders':recent_orders,
+    }
+    return render(request, 'accounts/cust_account.html',context)
 
 
 def forgot_password(request):

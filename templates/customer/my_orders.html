@@ -64,37 +64,17 @@
 
 <body>
 
-    {% include 'customer/c_cover.html'%}
+    {% include 'include/c_cover.html'%} {%include 'include/alert.html'%}
     <div class="cus_dashboard">
-        {%include 'include/alert.html'%}
         <div class="sidebar">
             {%include 'include/c_sidebar.html'%}
+
         </div>
         <div class="dashboard">
-            <div class="order_details">
-                <div class="title text-uppercase" style="font-size: larger; font-weight: bolder;">
-                    OVERVIEW
-                </div>
-                <div class="order_count">
-                    <div class="total_order text-center">
-                        <div class="order_head bg_gray">Total Order</div>
-                        <a href="">
-                            <div class="order_body">{{orders_count}}</div>
-                        </a>
-                    </div>
-                    <div class="cust_id text-center">
-                        <div class="order_head bg_gray">logged in as: <strong>{{user.email}}</strong> </div>
-                        <a href="{% url 'c_profile' %}">
-                            <div class="order_body"><i class="fa fa-edit"></i>&nbsp; <strong>Edit Profile</strong></div>
-
-                        </a>
-                    </div>
-                </div>
-
-            </div>
+            
             <div class="order_detail">
                 <div class="title text-uppercase" style="font-size: larger; font-weight: bolder;">
-                    RECENT ORDERS
+                    MY ORDERS
                 </div>
                 <table class="table table-hover">
                     <thead>
@@ -108,15 +88,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for order in recent_orders%}
+                        {% for order in orders %}
                         <tr>
-                            <td><b><a href="{% url 'order_details' order.order_number%}" class="text-dark">{{order.order_number}}</a></b></td>
+                            <td><b><a href="#" class="text-dark">{{order.order_number}}</a></b></td>
                             <td>{{order.name}}</td>
                             <td>{{order.total}}₹</td>
                             <td>{{order.status}}</td>
                             <td>{{order.created_at}}</td>
                             <td>
-                                <a href="{% url 'order_details' order.order_number%}" class="btn btn-danger">Details</a>
+                                <a href="{% url 'order_details' order.order_number %}" class="btn btn-sm btn-danger">Details</a>
                             </td>
                         </tr>
                         {%endfor%}
@@ -127,9 +107,6 @@
         </div>
 
     </div>
-
-
-
 </body>
 
 </html>

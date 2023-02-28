@@ -36,7 +36,6 @@
             display: flex;
             justify-content: space-between;
             padding: 5px 10px;
-
         }
         
         .items ul:hover {
@@ -85,7 +84,7 @@
                 <hr style="border-bottom: 2px solid silver;">
                 <div class="items mt-3">
                     {% for item in ordered_food %}
-                    <ul class ="mt-2">
+                    <ul>
                         <li><img src="{{item.fooditem.image.url}}" alt="food image" width="50"></li>
                         <li>
                             <p class="mb-0"><b>{{item.fooditem}}</b></p>
