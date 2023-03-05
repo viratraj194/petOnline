@@ -1,0 +1,161 @@
+{% extends 'accounts/base.html'%} {% block content %} {%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .v_profile {
+            box-sizing: border-box;
+            position: relative;
+            width: 900px;
+            float: right;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: white;
+        }
+        
+        .cus_dashboard {
+            justify-content: space-between;
+            display: flex;
+            width: 80%;
+            margin: auto;
+        }
+        
+        .order_address {
+            /* text-align: center; */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 10px auto;
+        }
+        
+        .items ul {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+        }
+        
+        .items ul:hover {
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'include/cover.html'%}
+    <div>
+        <div class="cus_dashboard">
+            <div>
+                {%include 'include/v_side_menu.html'%}
+            </div>
+
+            <div class="v_profile">
+                <img src="{% static 'logo/logo2.png' %}" alt="onlinepetstore" width="300">
+                <div class="order_address">
+                    <h3 style="font-size: larger; font-weight: bold;">Thank you For Your Order.</h3>
+                    <div class="addresses">
+                        <p class="mb-0">{{order.name}}</p>
+                        <p class="mb-0">{{order.address}}</p>
+                        <p class="mb-0">{{order.phone}}</p>
+                        <p class="mb-0">{{order.email}}</p>
+                    </div>
+                </div>
+                <div class="greet">
+                    <h6 style="font-size: medium; font-weight: 600;">Hello {{order.name}},</h6><span>review your details below</span>
+                </div>
+                <hr style="border-bottom: 2px solid silver;">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <span class="d-block">Order Date:</span><span class="font-weight-bold">{{order.created_at}}</span>
+                    </div>
+                    <div>
+                        <span class="d-block">Order No:</span><span class="font-weight-bold">{{order.order_number}}</span>
+                    </div>
+                    <div>
+                        <span class="d-block">Payment Method:</span><span class="font-weight-bold">{{order.payment_method}}</span>
+                    </div>
+                    <div>
+                        <span class="d-block">Transaction ID:</span><span class="font-weight-bold">{{order.payment.transaction_id}}</span>
+                    </div>
+                </div>
+                <hr style="border-bottom: 2px solid silver;">
+                <div class="items mt-3">
+                    {% for item in ordered_food %}
+                    <ul>
+                        <li><img src="{{item.fooditem.image.url}}" alt="food image" width="50"></li>
+                        <li>
+                            <p class="mb-0"><b>{{item.fooditem}}</b></p>
+                            <a class="text-muted" href="{% url 'vendor_detail' item.fooditem.vendor.vendor_slug %}" class="badge badge-warning">{{ item.fooditem.vendor }}</a>
+                        </li>
+                        <li>
+                            {{item.quantity}} Qty
+                        </li>
+                        <li>₹{{item.fooditem.price}}</li>
+                    </ul>
+                    {%endfor%}
+
+                </div>
+                <div class="row mt-5">
+                    <div class="d-flex justify-content-center col-md-6">
+                        <img src="{% static 'img/paid.png' %}" width="200" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li style="list-style-type:none;">
+                                Subtotal
+                                <span class="price float-right">
+                                    <span class="currency">₹</span>
+                                <span id="subtotal">{{subtotal}}</span>
+                                </span>
+                            </li>
+                            {% for key, value in tax_data.items %} {% for i, j in value.items %}
+                            <li style="list-style-type: none;">
+                                {{ key }} <small>({{ i }}%)</small>
+                                <span class="price float-right">
+                                            <span class="currency">$</span>
+                                <span id="tax-{{ key }}">{{ j }}</span>
+                                </span>
+                            </li>
+                            {% endfor %} {% endfor %}
+
+                            <li style="list-style-type:none; font-weight: 600;">
+                                Total
+                                <span class="price float-right">
+                                    <span class="currency">₹</span>
+                                <span id="total">{{order.total}}</span>
+                                </span>
+                            </li>
+                            {% comment %} paypal checkout button {% endcomment %}
+
+                        </ul>
+                    </div>
+                    <hr style="border-bottom: 2px solid silver;">
+
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <span class="d-flex font-weight-bold">Thank for ordering with us.</span>
+                            <span>
+                                online pet Store Team
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-end">
+                            <span class="d-flex font-weight-bold">Need Help?</span>
+                            <span>Call- +91 7011255665</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+
+{%endblock%}

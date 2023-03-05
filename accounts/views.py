@@ -162,8 +162,17 @@ def check_user_role_for_vendor(user):
 @login_required(login_url='login')
 @user_passes_test(check_user_role_for_vendor)
 def vendor_account(request):
-
-    return render(request, 'accounts/vendor_account.html', )
+    vendor = Vendor.objects.get(user = request.user)
+    orders = Order.objects.filter(vendors__in = [vendor.id],is_ordered = True).order_by('-created_at')
+    recent_orders = orders[:5]
+    
+    context = {
+        'vendor':vendor,
+        'orders':orders,
+        'recent_orders':recent_orders,
+        'order_count':orders.count()
+    }
+    return render(request, 'accounts/vendor_account.html',context )
 
 
 @login_required(login_url='login')

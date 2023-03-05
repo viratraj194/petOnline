@@ -1,4 +1,6 @@
 from django.shortcuts import  get_object_or_404,redirect,render
+
+from orders.models import Order, OrderedFood
 from .forms import VendorForm
 from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
@@ -211,3 +213,17 @@ def delete_food(request, pk=None):
     food.delete()
     messages.success(request, 'food item has Deleted successfully'.title())
     return redirect('fooditems_by_category', food.category.id)
+
+
+def vendor_order_detail(request,order_number):
+    try:
+        order = Order.objects.get(order_number = order_number,is_ordered = True)
+        ordered_food = OrderedFood.objects.filter(order = order,fooditem__vendor=get_vendor(request))
+        
+        context = {
+            'order':order,
+            'ordered_food':ordered_food
+        }
+    except:
+        return redirect('vendor')
+    return render(request,'accounts/vendor/vendor_order_detail.html',context)

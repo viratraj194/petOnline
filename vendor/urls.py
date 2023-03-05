@@ -18,4 +18,6 @@ urlpatterns = [
     path('menu_builder/food/edit/<int:pk>/',views.edit_food,name='edit_food'),
     path('menu_builder/food/delete/<int:pk>/',views.delete_food,name='delete_food'),
 
+    path('vendor_order_detail/<int:order_number>/',views.vendor_order_detail,name='vendor_order_detail')
+
 ]

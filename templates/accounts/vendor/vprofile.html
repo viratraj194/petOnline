@@ -17,10 +17,10 @@
         .v_profile {
             box-sizing: border-box;
             position: relative;
-            width: 700px;
+            width: 900px;
             float: right;
-            margin-right: 2cm;
-            margin-top: 1cm;
+            /* margin-right: 20px; */
+            margin-top: 20px;
             margin-bottom: 2cm;
             padding: 10px;
             background-color: white;
@@ -61,12 +61,19 @@
             flex-direction: column;
             margin-left: 10px;
         }
+        
+        .cus_dashboard {
+            justify-content: space-between;
+            display: flex;
+            width: 80%;
+            margin: auto;
+        }
     </style>
 </head>
 
 <body>
     {% include 'include/cover.html'%}
-    <div>
+    <div class="cus_dashboard">
         <div>
 
             {%include 'include/v_side_menu.html'%}

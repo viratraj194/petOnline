@@ -6,54 +6,136 @@
     <meta charset="UTF-8">
     <title>cust_account</title>
     <style>
-        * {
-            box-sizing: border-box;
+        .cus_dashboard {
+            display: flex;
+            width: 80%;
+            margin: auto;
         }
         
         .dashboard {
+            background-color: white;
+            width: 900px;
+            padding: 20px;
+            margin: 20px;
+        }
+        
+        .order_count {
             display: flex;
             justify-content: space-between;
+            margin-top: 10px;
+            padding: 20px;
         }
         
-        .dashboard .included_sidebar {
-            display: inline;
-            position: relative;
-            z-index: 1;
+        .bg_gray {
+            background-color: rgba(241, 235, 235, 0.622);
         }
         
-        .dashboard .included_table {
-            display: inline;
-            position: relative;
-            z-index: -1;
+        .order_count .total_order {
+            border: 1px solid silver;
+            width: 200px;
+            height: 100px;
+            border-radius: 8px;
+        }
+        
+        .order_head {
+            border-bottom: 1px solid silver;
+            padding: 10px 0;
+        }
+        
+        .order_count .cust_id {
+            border: 1px solid silver;
+            width: 400px;
+            height: 100px;
+            border-radius: 8px;
+        }
+        
+        .order_count .cust_id {
+            border: 1px solid silver;
+            width: 400px;
+            height: 100px;
+            border-radius: 8px;
+        }
+        
+        .order_body {
+            padding: 10px 0;
         }
     </style>
 </head>
 
 <body>
 
-    {% include 'include/cover.html'%}
-
-    <div class="cards">
-
-        <div class="sidebars">
-            <div>
-                {%include 'include/alert.html'%}
-            </div>
+    {% include 'include/cover.html'%} {%include 'include/alert.html'%}
+    <div class="cus_dashboard">
+        <div class="sidebar">
+            {%include 'include/v_side_menu.html'%}
 
         </div>
-
         <div class="dashboard">
-            <div class="included_sidebar">
+            <div class="order_details">
+                <div class="title text-uppercase" style="font-size: larger; font-weight: bolder;">
+                    OVERVIEW
+                </div>
+                <span>Logged in as: <strong>{{user.email}}</strong></span>
+                <div class="order_count">
+                    <div class="total_order text-center">
+                        <div class="order_head bg_gray">Total Order</div>
+                        <a href="">
+                            <div class="order_body">{{order_count}}</div>
+                        </a>
+                    </div>
+                    <div class="total_order text-center">
+                        <div class="order_head bg_gray">Total Revenue</div>
+                        <a href="">
+                            <div class="order_body">0</div>
+                        </a>
+                    </div>
+                    <div class="total_order text-center">
+                        <div class="order_head bg_gray">This months orders</div>
+                        <a href="">
+                            <div class="order_body"></div>
+                        </a>
+                    </div>
 
-                {%include 'include/v_side_menu.html'%}
+                </div>
+
             </div>
-            <div class="included_table">
+            <div class="order_detail">
+                <div class="title text-uppercase" style="font-size: larger; font-weight: bolder;">
+                    RECENT ORDERS
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Order#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in recent_orders %}
+                        <tr>
+                            <td><b><a href="{% url 'vendor_order_detail' order.order_number%}" class="text-dark">{{order.order_number}}</a></b></td>
+                            <td>{{order.name}}</td>
+                            <td>{{order.get_total_by_vendor.grand_total}}₹</td>
+                            <td>{{order.status}}</td>
+                            <td>{{order.created_at}}</td>
+                            <td>
+                                <a href="{% url 'vendor_order_detail' order.order_number %}" class="btn btn-danger">Details</a>
+                            </td>
+                        </tr>
+                        {%endfor%}
 
-                {%include 'include/table.html'%}
+                    </tbody>
+                </table>
             </div>
         </div>
 
     </div>
+
+
 
 </body>
 
