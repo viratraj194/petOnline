@@ -18,38 +18,40 @@ client = razorpay.Client(auth=(RZP_KEY_ID, RZP_KEY_SECRET))
 @login_required(login_url='login')
 def place_order(request):
     cart_items = Cart.objects.filter(user = request.user).order_by('created_at')
-    cart_amount = cart_items.count()
-    if cart_amount <= 0:
+    cart_count = cart_items.count()
+    if cart_count <= 0:
         return redirect('marketplace')
     vendors_ids = []
     for i in cart_items:
-        if i.fooditem.vendor.id not in vendors_ids:
+        if i.fooditem.vendor.id  not in vendors_ids:
             vendors_ids.append(i.fooditem.vendor.id)
+
+
     get_tax = Tax.objects.filter(is_active = True)
     subtotal = 0
     total_data = {}
     k = {}
-
     for i in cart_items:
-        fooditem = FoodItem.objects.get(pk = i.fooditem.id,vendor_id__in = vendors_ids)
+        fooditem = FoodItem.objects.get(pk= i.fooditem.id,vendor_id__in=vendors_ids)
         v_id = fooditem.vendor.id
         if v_id in k:
             subtotal = k[v_id]
-            subtotal +=(fooditem.price * i.quantity)
+            subtotal += (fooditem.price * i.quantity)
             k[v_id] = subtotal
         else:
             subtotal = (fooditem.price * i.quantity)
             k[v_id] = subtotal
-        # calculate the tax data 
+        #calculate the tax data
         tax_dict = {}
         for i in get_tax:
             tax_type = i.tax_type
             tax_percentage = i.tax_percentage
             tax_amount = round((tax_percentage * subtotal)/100,2)
-            tax_dict.update({tax_type:{str(tax_percentage):{str(tax_amount)}}})
-        # calculate total data 
+            tax_dict.update({tax_type:{str(tax_percentage):{str(tax_amount)}}})      
+            #calculate total data
         total_data.update({fooditem.vendor.id:{str(subtotal):str(tax_dict)}})
-    
+
+
     subtotal = get_cart_amount(request)['subtotal']
     total_tax = get_cart_amount(request)['tax']
     grand_total = get_cart_amount(request)['grand_total']

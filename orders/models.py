@@ -66,37 +66,31 @@ class Order(models.Model):
         return self.order_number
 
     def get_total_by_vendor(self):
-        vendor = Vendor.objects.get(user =request_object.user)
-        
+        vendor = Vendor.objects.get(user=request_object.user)
+        subtotal = 0
+        tax = 0
+        tax_dict = {}
         if self.total_data:
             total_data = json.loads(self.total_data)
             data = total_data.get(str(vendor.id))
-
-
-            subtotal = 0
-            tax = 0
-            tax_dict = {}
-            # print(data)
+            print(data)
+            
             for key,val in data.items():
-                subtotal += float(key)             
+                subtotal +=float( key)
                 val = val.replace("'",'"')
                 val = json.loads(val)
                 tax_dict.update(val)
-        #         calculate tax
-            print(total_data)    
-        #         #{'CGST': {'6.00': '26.40'}, 'SGST': {'9.00': '39.60'}}
+            print(tax_dict)
         #         for i in val:
         #             for j in val[i]:
         #                 tax += float(val[i][j])
-        # grand_total = float(subtotal ) + float(tax)
-     
+        # grand_total = float(subtotal) + float(tax)
         # context = {
-        #     'subtotal':subtotal,
-        #     'tax':tax,
-        #     'tax_dict':tax_dict,
-        #     'grand_total':grand_total,
+        #     'subtotal': subtotal,
+        #     'tax_dict': tax_dict, 
+        #     'grand_total': grand_total,
         # }
-
+ 
         return vendor
 
 
