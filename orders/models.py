@@ -76,10 +76,12 @@ class Order(models.Model):
             print(data)
             
             for key,val in data.items():
-                subtotal +=float( key)
+                subtotal +=float(key)
                 val = val.replace("'",'"')
                 val = json.loads(val)
                 tax_dict.update(val)
+                #calculate tax
+                #{'CGST': {'6.00': '26.40'}, 'SGST': {'9.00': '39.60'}}
             print(tax_dict)
         #         for i in val:
         #             for j in val[i]:
