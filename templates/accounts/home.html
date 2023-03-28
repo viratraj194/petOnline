@@ -59,9 +59,10 @@
         }
         
         .home_vendor {
-            display: flex;
-            flex-direction: column;
+            display: flex !important;
+            /* flex-direction: column; */
             justify-content: center;
+            padding: 10px;
             align-items: center;
             box-sizing: border-box;
             flex-wrap: wrap;
@@ -162,7 +163,7 @@
             <h1>Top Pet Shop</h1>
             <small>Above Are The best Pet shope and it has most cutest Pets</small>
         </div>
-        <div class="home_profile" style=" background: url({% static 'img/bg-image2.jpg' %}) no-repeat center / cover;;">
+        <div class="home_profile" style=" padding: 20px; background: url({% static 'img/bg-image2.jpg' %}) no-repeat center / cover;;">
             {% for vendor in vendors %}
 
             <a href="#">
@@ -177,23 +178,25 @@
             <h1>some of the nice pet donator</h1>
             <small>Above Are The best Pet donator and it has most cutest Pets</small>
         </div>
-        <div class="home_vendor" style=" background: url({% static 'img/bg-image5.jpg' %}) no-repeat center / cover;">
+        <div class="home_vendor d-flex" style=" display: flex !important; background: url({% static 'img/bg-image5.jpg' %}) no-repeat center / cover;">
 
             {% for vendor in vendors %}
-            <a href="#">
-                <div class="vendor_info">
-                    {% if vendor.user_profile.profile_picture %}
-                    <a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{{vendor.user_profile.profile_picture.url }}" class="img-thumbnail" alt="..." style="max-width: 150px;"></a> {% else %}
-                    <img src="{% static 'img/default-profile.PNG' %}" class="img-thumbnail" alt="..." style="max-width: 150px;"> {% endif %}
-                    <div>
-                        <strong>{{vendor.vendor_name}}</strong>
-                        <small>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}</small>
+            <div class="">
+                <a href="#">
+                    <div class="vendor_info">
+                        {% if vendor.user_profile.profile_picture %}
+                        <a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{{vendor.user_profile.profile_picture.url }}" class="img-thumbnail" alt="..." style="max-width: 150px;"></a> {% else %}
+                        <img src="{% static 'img/default-profile.PNG' %}" class="img-thumbnail" alt="..." style="max-width: 150px;"> {% endif %}
+                        <div>
+                            <strong>{{vendor.vendor_name}}</strong>
+                            <small>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}</small>
+                        </div>
+
+
                     </div>
 
-
-                </div>
-
-            </a>
+                </a>
+            </div>
             {% endfor %}
 
 

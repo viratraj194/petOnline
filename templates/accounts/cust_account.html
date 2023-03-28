@@ -83,7 +83,7 @@
                         </a>
                     </div>
                     <div class="cust_id text-center">
-                        <div class="order_head bg_gray">logged in as: <strong>{{user.email}}</strong> </div>
+                        <div class="order_head bg_gray text-right">logged in as: <strong>{{user.email}}</strong> </div>
                         <a href="{% url 'c_profile' %}">
                             <div class="order_body"><i class="fa fa-edit"></i>&nbsp; <strong>Edit Profile</strong></div>
 
@@ -96,7 +96,7 @@
                 <div class="title text-uppercase" style="font-size: larger; font-weight: bolder;">
                     RECENT ORDERS
                 </div>
-                <table class="table table-hover">
+                <table class="table table-hover" id = "myOrdersTable">
                     <thead>
                         <tr>
                             <th scope="col">Order#</th>

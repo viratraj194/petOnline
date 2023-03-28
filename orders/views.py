@@ -4,6 +4,7 @@ from marketplace.context_processors import get_cart_amount
 from marketplace.models import Cart, Tax
 from menu.models import FoodItem
 from orders.models import Order, OrderedFood, Payment
+from vendor.models import Vendor
 from.forms import OrderForm
 import simplejson as json
 from . utils import generate_order_number
@@ -17,22 +18,22 @@ client = razorpay.Client(auth=(RZP_KEY_ID, RZP_KEY_SECRET))
 
 @login_required(login_url='login')
 def place_order(request):
-    cart_items = Cart.objects.filter(user = request.user).order_by('created_at')
+    cart_items = Cart.objects.filter(user=request.user).order_by('created_at')
     cart_count = cart_items.count()
     if cart_count <= 0:
         return redirect('marketplace')
     vendors_ids = []
     for i in cart_items:
-        if i.fooditem.vendor.id  not in vendors_ids:
+        if i.fooditem.vendor.id not in vendors_ids:
             vendors_ids.append(i.fooditem.vendor.id)
 
 
-    get_tax = Tax.objects.filter(is_active = True)
+    get_tax = Tax.objects.filter(is_active=True)
     subtotal = 0
     total_data = {}
     k = {}
     for i in cart_items:
-        fooditem = FoodItem.objects.get(pk= i.fooditem.id,vendor_id__in=vendors_ids)
+        fooditem = FoodItem.objects.get(pk=i.fooditem.id, vendor_id__in=vendors_ids)
         v_id = fooditem.vendor.id
         if v_id in k:
             subtotal = k[v_id]
@@ -46,10 +47,11 @@ def place_order(request):
         for i in get_tax:
             tax_type = i.tax_type
             tax_percentage = i.tax_percentage
-            tax_amount = round((tax_percentage * subtotal)/100,2)
-            tax_dict.update({tax_type:{str(tax_percentage):{str(tax_amount)}}})        #calculate total data
-        total_data.update({fooditem.vendor.id:{str(subtotal):str(tax_dict)}})
-    
+            tax_amount = round((tax_percentage * subtotal)/100, 2)
+            tax_dict.update({tax_type: {str(tax_percentage) : str(tax_amount)}})
+        # Construct total data
+        # vendor = Vendor.objects.get_or_create(user=request.user)[0]
+        total_data.update({request.user.id: {str(subtotal): str(tax_dict)}})    
 
         
     subtotal = get_cart_amount(request)['subtotal']

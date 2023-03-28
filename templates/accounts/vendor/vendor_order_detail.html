@@ -111,7 +111,7 @@
                                 <span id="subtotal">{{subtotal}}</span>
                                 </span>
                             </li>
-                            {% for key, value in tax_data.items %} {% for i, j in value.items %}
+                            {% for key, value in tax_dict.items %} {% for i, j in value.items %}
                             <li style="list-style-type: none;">
                                 {{ key }} <small>({{ i }}%)</small>
                                 <span class="price float-right">
@@ -125,7 +125,7 @@
                                 Total
                                 <span class="price float-right">
                                     <span class="currency">₹</span>
-                                <span id="total">{{order.total}}</span>
+                                <span id="total">{{grand_total | floatformat:2}}</span>
                                 </span>
                             </li>
                             {% comment %} paypal checkout button {% endcomment %}

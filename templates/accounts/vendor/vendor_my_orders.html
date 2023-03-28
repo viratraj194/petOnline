@@ -71,38 +71,12 @@
 
         </div>
         <div class="dashboard">
-            <div class="order_details">
-                <div class="title text-uppercase" style="font-size: larger; font-weight: bolder;">
-                    OVERVIEW
-                </div>
-                <span>Logged in as: <strong>{{user.email}}</strong></span>
-                <div class="order_count">
-                    <div class="total_order text-center">
-                        <div class="order_head bg_gray">Total Order</div>
-                        <a href="">
-                            <div class="order_body"><strong>{{order_count}}</strong></div>
-                        </a>
-                    </div>
-                    <div class="total_order text-center">
-                        <div class="order_head bg_gray">Total Revenue</div>
-
-                        <div class="order_body">
-                            <strong>{{total_revenue | floatformat:2}} ₹</strong></div>
-
-                    </div>
-                    <div class="total_order text-center">
-                        <div class="order_head bg_gray">This months Revenue</div>
-                        <div class="order_body"><strong>{{current_month_revenue}} ₹</strong></div>
-                    </div>
-
-                </div>
-
-            </div>
+            
             <div class="order_detail">
                 <div class="title text-uppercase" style="font-size: larger; font-weight: bolder;">
-                    RECENT ORDERS
+                    MY ORDERS
                 </div>
-                <table class="table table-hover" id = "myOrdersTable">
+                <table id = "myOrdersTable" class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Order#</th>
@@ -114,15 +88,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for order in recent_orders %}
+                        {% for order in orders %}
                         <tr>
-                            <td><b><a href="{% url 'vendor_order_detail' order.order_number%}" class="text-dark">{{order.order_number}}</a></b></td>
+                            <td><b><a href="#" class="text-dark">{{order.order_number}}</a></b></td>
                             <td>{{order.name}}</td>
                             <td>{{order.get_total_by_vendor.grand_total | floatformat:2}}₹</td>
                             <td>{{order.status}}</td>
                             <td>{{order.created_at}}</td>
                             <td>
-                                <a href="{% url 'vendor_order_detail' order.order_number %}" class="btn btn-danger">Details</a>
+                                <a href="{% url 'vendor_order_detail' order.order_number %}" class="btn btn-sm btn-danger">Details</a>
                             </td>
                         </tr>
                         {%endfor%}
@@ -133,9 +107,6 @@
         </div>
 
     </div>
-
-
-
 </body>
 
 </html>

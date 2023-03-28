@@ -45,6 +45,7 @@
         
         .unlist li {
             padding: 10px;
+            margin-top: 10px;
         }
         
         .unlist a {
@@ -83,8 +84,8 @@
             <li class=" {% if 'menu_builder' in request.path%} activate {%endif%}">
                 <a href="{% url 'menu_builder' %}"><i class="fa fa-bars"></i> &nbsp;Menu Builder</a>
             </li>
-            <li class="list">
-                <a href="#"><i class="fa  fa-shopping-cart"></i> &nbsp;Orders</a>
+            <li class="{% if 'vendor_my_orders' in request.path%} activate{% endif%}">
+                <a href="{% url 'vendor_my_orders'%}"><i class="fa  fa-shopping-cart"></i> &nbsp;Orders</a>
             </li>
             <li class="list" id="last-list">
                 <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> &nbsp;Logout</a>

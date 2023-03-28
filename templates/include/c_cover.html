@@ -37,18 +37,18 @@
         }
     </style>
 </head>
-<div class="cover_photo" style=" padding-top: 44px; padding-bottom: 176px; margin-bottom: 0px; background: url({% if profile.cover_photo %}{{profile.cover_photo.url}} {% else %}{% static 'img/bg-image2.jpg' %} {% endif %}) no-repeat scroll 0 0 / cover; height: 10cm; ;">
+<div class="cover_photo" style=" padding-top: 44px; padding-bottom: 176px; margin-bottom: 0px; background: url({% if user_profile.cover_photo %}{{user_profile.cover_photo.url}} {% else %}{% static 'img/bg-image2.jpg' %} {% endif %}) no-repeat scroll 0 0 / cover; height: 10cm; ;">
     <div class="c_profile_details">
         <div class="c_profile_photo">
-            {% if profile.profile_picture %}
-            <img src="{{profile.profile_picture.url}}" alt="..."> 
-            {% else %}
+            {% if user_profile.profile_picture %}
+                <img src="{{user_profile.profile_picture.url}}" alt="">
+            {% else %} 
             <img src="{% static 'img/default-profile.PNG' %}" alt="..."> 
-            {% endif %}
+            {% endif %} 
         </div>
 
         <div class="c_details">
-            <strong>{{user.first_name}}</strong>
+            <strong>{{user.first_name}} {{user.last_name}}</strong>
             <span>
                 <i class="fa fa-location-dot"></i> &nbsp; {{user.phone_number}}
                 <p></p>

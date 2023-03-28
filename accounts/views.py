@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from orders.models import Order
-
+import datetime
 from vendor.models import Vendor
 from .forms import UserForm
 from vendor.forms import VendorForm
@@ -165,12 +165,23 @@ def vendor_account(request):
     vendor = Vendor.objects.get(user = request.user)
     orders = Order.objects.filter(vendors__in = [vendor.id],is_ordered = True).order_by('-created_at')
     recent_orders = orders[:5]
+    total_revenue  = 0
+    for i in orders:
+        total_revenue += i.get_total_by_vendor()['grand_total']
     
+    current_month = datetime.datetime.now().month
+    current_month_order = orders.filter(vendors__in = [vendor.id],created_at__month = current_month)
+    current_month_revenue = 0
+    for i in current_month_order:
+        current_month_revenue += i.get_total_by_vendor()['grand_total']
+
     context = {
         'vendor':vendor,
         'orders':orders,
         'recent_orders':recent_orders,
-        'order_count':orders.count()
+        'order_count':orders.count(),
+        'total_revenue':total_revenue,
+        'current_month_revenue':current_month_revenue
     }
     return render(request, 'accounts/vendor_account.html',context )
 
