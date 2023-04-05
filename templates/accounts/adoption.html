@@ -76,7 +76,7 @@
             background-color: white;
             height: 40px;
             padding-top: 7px;
-            width: 120px;
+            width: 320px;
             box-sizing: border-box;
             text-align: center;
             border-radius: 8px 0px 0px 0px;
@@ -154,44 +154,20 @@
 </head>
 
 <body>
-    <div class="cover_photo" style="padding-top: 44px; padding-bottom: 176px; margin-bottom: 0px; background: url({{vendor.user_profile.cover_photo.url }}) no-repeat center / cover;">
-        <div class="cover_profile">
-            <div id="profile_photo">
-                <img id="profile" src="{{vendor.user_profile.profile_picture.url}}" alt="...">
-            </div>
-            <div class="cover_content">
-                <strong>{{vendor}}</strong>
-                <small>
-                    <i class="fa fa-location-dot"></i>  &nbsp; {{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}
-                </small>
 
-            </div>
-
-        </div>
-    </div>
     <div class="vendor_all_category">
-        <div class="category_list">
-            <h3><i class=" 	fas fa-cat"></i> &nbsp; Category</h4>
-                {%for category in categories%}
 
-                <h6 style="color: rgb(226, 12, 12); border-bottom: 1px solid rgb(221, 217, 217);">{{category}}</h6>
-                {%endfor%}
-
-        </div>
 
         <div class="main_category">
             <div class="menu_title">
-                <strong style="color: rgb(205, 46, 46);"><i class="fa fa-shopping-basket"></i> &nbsp; Menu</strong>
+                <strong style="color: rgb(205, 46, 46); width: 200px;"><i class="fa fa-shopping-basket"></i> &nbsp; {{fooditems_count}} Pets are available for Adoption</strong>
             </div>
-            {% if categories %}
+
             <div id="main_category">
-                {% for category in categories%}
-                <div class="category" style="display: flex;">
-                    <strong style="color: rgb(165, 44, 44);">{{category}}.</strong>
-                    <small>{{category.description}}</small>
-                </div>
-                {% for food in category.fooditems.all%}
-                <div class="category_food ">
+
+
+                {% for food in fooditems%}
+                <div class="category_food">
 
                     <div class="food_details">
 
@@ -205,32 +181,11 @@
                         <span>{{food.price}}₹</span> &nbsp;
                         <a href="#" class="decrees_cart" data-id="{{food.id}}" data-url="{% url 'decrees_cart' food.id %}"><i class="fas fa-minus" style="color: rgb(219, 15, 15);"></i></a>
                         <label id="qty-{{food.id}}">0 </label>
-                        <a href="#" class="add_to_cart" data-id="{{food.id}}" data-url="{% url 'add_to_cart' food.id %}"><i class=" fas fa-plus" style="color: rgb(219, 15, 15);"></i></a>
-
+                        <a href="#" class="add_to_cart" data-id="{{food.id}}" data-url="{% url 'add_to_cart' food.id %}"><i class=" fas fa-plus" style="color: rgb(219, 15, 15);"></i></a> {% for item in cart_items%}
+                        <span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}"></span> {%endfor%}
                     </div>
-
                 </div>
-                {%endfor%} {%endfor%}
-            </div>
-            {%else%}
-            <div id="main_category">
-
-
-                <div class="category_no_food">
-
-                    <i class="far fa-grin-beam-sweat"></i>
-                    <h2>Sorry</h2>
-                    <p>this restaurant has not added the food</p>
-
-                </div>
-
-            </div>
-            {%endif%}
-
-        </div>
-        {% for item in cart_items%}
-        <span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}"></span> {%endfor%}
-    </div>
+                {%endfor%}
 
 </body>
 

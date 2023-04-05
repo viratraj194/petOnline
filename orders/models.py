@@ -67,7 +67,7 @@ class Order(models.Model):
         return self.order_number
 
     def get_total_by_vendor(self):
-        vendor = self.user
+        vendor = Vendor.objects.get(user = request_object.user)
         subtotal = 0
         tax = 0
         tax_dict = {}

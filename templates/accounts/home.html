@@ -6,128 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{%static 'css/home.css'%}">
     <style>
-        .home_search {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            justify-content: space-evenly;
-            background-color: rgba(9, 124, 17, 0.825);
-            height: 75px;
-            box-sizing: border-box;
-            flex-wrap: wrap;
-            padding: 10px;
-        }
-        
-        .home_search .home_input,
-        select {
-            height: 50px;
-            width: 425px;
-            outline: none;
-            border-radius: 8px;
-            padding-left: 10px;
-            font-size: 1.2rem;
-            font-weight: 400;
-        }
-        
-        .home_botton {
-            height: 50px;
-            width: 150px;
-            border-radius: 8px;
-            background: #7e7b7b;
-            color: #fffdf8;
-            font-size: 1.3rem;
-            font-weight: 500;
-        }
-        
-        .home_profile {
-            display: flex;
-            flex-wrap: wrap;
-            box-sizing: border-box;
-            justify-content: center;
-            align-items: center;
-            justify-content: space-around;
-            height: 300px;
-            /* background-color: rgba(9, 124, 17, 0.538); */
-        }
-        
-        .home_search,
-        .home_profile {
-            max-width: 1146px;
-            margin: auto;
-            border-radius: 8px;
-        }
-        
-        .home_vendor {
-            display: flex !important;
-            /* flex-direction: column; */
-            justify-content: center;
-            padding: 10px;
-            align-items: center;
-            box-sizing: border-box;
-            flex-wrap: wrap;
-            height: 400px;
-        }
-        
-        .home_vendor .vendor_info {
-            background-color: white;
-            border: 1px solid rgb(243, 236, 236);
-            width: 450px;
-            display: flex;
-            flex-wrap: wrap;
-            margin: 6px 6px;
-            padding: 6px;
-        }
-        
-        .home_vendor .vendor_info img {
-            height: 100px;
-        }
-        
-        .home_vendor .vendor_info div {
-            display: flex;
-            flex-direction: column;
-            padding-left: 5px;
-        }
-        
-        .home_top_tag {
-            margin-top: 1cm;
-            justify-content: center;
-            text-align: center;
-            box-sizing: border-box;
-            margin: 10px auto;
-        }
-        
-        .home_top_tag h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: bold;
-        }
-        
-        .home_top_tag small {
-            font-family: 'Playfair Display', serif;
-            font-size: 1rem;
-            font-weight: 300;
-        }
-        
-        .shope_titles {
-            color: white;
-            padding-bottom: 2cm;
-            justify-content: center;
-            text-align: center;
-            box-sizing: border-box;
-        }
-        
-        .shope_titles h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: bolder;
-        }
-        
-        .shope_titles small {
-            font-family: 'Playfair Display', serif;
-            font-size: 1rem;
-            font-weight: bolder;
-        }
+
     </style>
 </head>
 
@@ -140,11 +21,11 @@
             </div>
             <div class="home_search">
                 <form action="{% url 'search'%}" method="get">
-                    <input class="home_input" type="text" name="rest_name" id="" placeholder="search place">
-                    <input class="home_input" type="text" name="address" id="id_address" required placeholder="All Locations">
+                    <input class="home_input mt-2" type="text" name="rest_name" id="" placeholder="search place">
+                    <input class="home_input mt-2" type="text" name="address" id="id_address" required placeholder="All Locations">
                     <input type="hidden" name="lat" value="" id="latitude">
                     <input type="hidden" name="lng" value="" id="longitude">
-                    <select style="width: 100px;" name="radius" id="radius" required>
+                    <select class="mt-2" style="width: 100px;" name="radius" id="radius" required>
                         <option  value="" >Choose Radius</option>
                         <option value="5">5KM</option>
                         <option value="10">10KM</option>
@@ -155,7 +36,7 @@
                         <option value="100">100KM</option>
 
                     </select>
-                    <input class="home_botton" type="submit" value="search">
+                    <input class="home_botton mt-2" type="submit" value="search">
                 </form>
             </div>
         </div>
@@ -166,9 +47,9 @@
         <div class="home_profile" style=" padding: 20px; background: url({% static 'img/bg-image2.jpg' %}) no-repeat center / cover;;">
             {% for vendor in vendors %}
 
-            <a href="#">
+            <a href="#" class="mt-3">
                 {% if vendor.user_profile.profile_picture %}
-                <a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{{vendor.user_profile.profile_picture.url }}" class="img-thumbnail" alt="..." style="max-width: 150px;"></a> {% else %}
+                <a class="mt-3" href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{{vendor.user_profile.profile_picture.url }}" class="img-thumbnail" alt="..." style="max-width: 150px;"></a> {% else %}
             <img src="{% static 'img/default-profile.PNG' %}" class="img-thumbnail" alt="..." style="max-width: 150px;"> {% endif %}
             </a> {%endfor%}
 
@@ -179,25 +60,27 @@
             <small>Above Are The best Pet donator and it has most cutest Pets</small>
         </div>
         <div class="home_vendor d-flex" style=" display: flex !important; background: url({% static 'img/bg-image5.jpg' %}) no-repeat center / cover;">
+            <div class="d-flex" style="flex-wrap: wrap; justify-content: space-evenly;">
+                {% for vendor in vendors %}
+                <div class="">
+                    <a href="#">
+                        <div class="vendor_info">
+                            {% if vendor.user_profile.profile_picture %}
+                            <a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{{vendor.user_profile.profile_picture.url }}" class="img-thumbnail" alt="..." style="max-width: 150px;"></a> {% else %}
+                            <img src="{% static 'img/default-profile.PNG' %}" class="img-thumbnail" alt="..." style="max-width: 150px;"> {% endif %}
+                            <div>
+                                <strong>{{vendor.vendor_name}}</strong>
+                                <small>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}</small>
+                            </div>
 
-            {% for vendor in vendors %}
-            <div class="">
-                <a href="#">
-                    <div class="vendor_info">
-                        {% if vendor.user_profile.profile_picture %}
-                        <a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{{vendor.user_profile.profile_picture.url }}" class="img-thumbnail" alt="..." style="max-width: 150px;"></a> {% else %}
-                        <img src="{% static 'img/default-profile.PNG' %}" class="img-thumbnail" alt="..." style="max-width: 150px;"> {% endif %}
-                        <div>
-                            <strong>{{vendor.vendor_name}}</strong>
-                            <small>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}</small>
+
                         </div>
 
+                    </a>
+                </div>
+                {% endfor %}
 
-                    </div>
-
-                </a>
             </div>
-            {% endfor %}
 
 
 

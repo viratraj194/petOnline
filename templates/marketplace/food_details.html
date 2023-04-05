@@ -65,7 +65,6 @@
         /* #vendor_all_category */
         
         .vendor_all_category {
-            flex-wrap: wrap;
             margin: 2cm auto;
             width: 80%;
             justify-content: space-around;
@@ -190,21 +189,7 @@
 </head>
 
 <body>
-    <div class="cover_photo" style="padding-top: 44px; padding-bottom: 176px; margin-bottom: 0px; background: url({{vendor.user_profile.cover_photo.url }}) no-repeat center / cover;">
-        <div class="cover_profile">
-            <div id="profile_photo">
-                <img id="profile" src="{{vendor.user_profile.profile_picture.url}}" alt="...">
-            </div>
-            <div class="cover_content">
-                <strong>{{vendor}}</strong>
-                <small>
-                    <i class="fa fa-location-dot"></i>  &nbsp; {{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}
-                </small>
 
-            </div>
-
-        </div>
-    </div>
     <div class="vendor_all_category">
 
 
@@ -283,8 +268,39 @@
 
 
         </div>
+        <h4 class="text-center mt-5" style="font-size: 30px;"><strong>More pets for adoption</strong></h4>
+        <div class="d-flex mt-5 " style="justify-content: space-between;">
+            {% for food in fooditems %}
+            <div class="items d-flex mr-3" style="background-color:white ; border-radius: 8px; width: 250px; padding: 10px;">
+                <div class="image">
+                    <img src="{{food.image.url}}" alt="" width="82" style="border: 3px solid rgb(92, 210, 92);"> </div>
+                <div class="detail ml-2">
+                    <a href="{% url 'food_details' food.id %}"><strong>{{food}}.</strong></a>
+                    <h5>{{food.price}} ₹</h5>
+                    <small>{{food.description}}</small>
+
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+
+
+
+
+
+
+
+
+
+
         {% for item in cart_items%}
         <span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}"></span> {%endfor%}
+
+
+
+
+
+
     </div>
 
 

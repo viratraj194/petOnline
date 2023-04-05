@@ -421,7 +421,7 @@
     // Attach a click event listener to the button
     codButton.addEventListener("click", function() {
         // Generate a random transaction ID
-        const transactionId = generateTransactionId(15);
+        const transactionId = generateTransactionId(10);
         // Log the transaction ID to the console
         // console.log("Transaction ID: " + transactionId);
         // Add any additional code here to handle the case on delivery payment method
@@ -440,7 +440,7 @@
         // Or go to another URL:  actions.redirect('thank_you.html');
     });
     // function to generate a random transaction ID with the specified length
-    function generateTransactionId(length) {
+    {% comment %} function generateTransactionId(length) {
         let result = "";
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         for (let i = 0; i < length; i++) {
@@ -448,5 +448,25 @@
         }
         return result;
     }
+    function getCurrentDate() {
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        return `${day}${month}${year}`;
+      } {% endcomment %}
+      function generateTransactionId(length) {
+        const date = new Date();
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add 1 to month because getMonth() returns 0-based month (0 = January)
+        const year = date.getFullYear().toString();
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let result = "";
+        for (let i = 0; i < length; i++) {
+          result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return year + month + day + result;
+      }
+      
 </script>
 {%endblock%}

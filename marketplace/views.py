@@ -18,6 +18,8 @@ def marketplace(request):
     }
     return render(request,'marketplace/listing.html',context)
 
+
+
 def vendor_detail(request,vendor_slug):
     vendor = get_object_or_404(Vendor,vendor_slug=vendor_slug)
     categories = Category.objects.filter(vendor=vendor).prefetch_related(
@@ -38,13 +40,19 @@ def vendor_detail(request,vendor_slug):
 
     return render(request,'marketplace/vendor_details.html',context)
 
+
 def food_details(request,pk=None):
     
     food = FoodItem.objects.get(is_available=True,pk=pk)
 
+    fooditems = FoodItem.objects.filter(price = 0)
+
+
+
     context = {
         
         'food':food,
+        'fooditems':fooditems
     }
     return render(request,'marketplace/food_details.html',context)
 
@@ -168,3 +176,7 @@ def checkout(request):
         'cart_item':cart_item,
     }
     return render(request,'marketplace/checkout.html',context)
+
+
+
+

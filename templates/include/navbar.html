@@ -1,107 +1,74 @@
-{%load static %}
-<!DOCTYPE html>
+<!DOCTYPE html> {%load static %}
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{%static 'css/nav.css'%}">
 
     <style>
-        #nav {
-            height: 90px;
-            background-color: white;
-        }
-        
-        #navbarSupportedContent ul .btn {
-            font-weight: bold;
-            font-style: normal;
-            color: black;
-            margin-left: 10px;
-            width: 124px;
-            color: rgb(15, 150, 15);
-            border: 1px solid black;
-        }
-        
-        #navbarSupportedContent ul .btn:hover {
-            background-color: rgb(15, 150, 15);
-            color: white;
-        }
-        
-        #navbarSupportedContent ul {
-            justify-content: space-around;
-        }
-        
-        .btn {
-            border-radius: 8px;
-        }
-        
-        #search-btn {
-            margin-left: 14px;
-            height: 41px;
-        }
-        
-        #pro:hover {
-            color: white;
-            background-color: green;
-        }
+
     </style>
 </head>
 
 <body>
-    <nav id="nav" class="navbar navbar-expand-lg  bs-navbar-brand-color: rgb(0 0 0);">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{%url 'home'%}"><img id="PETonline" src="{% static 'logo/logo2.png' %}" alt="Logo" style=" display: inline;
-            margin: 15px 17px;
-            width: 195px;
-            border-radius: 10px"></a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button id="search-btn" class="btn btn-primary" type="submit">Search</button>
+    <nav class="d_flex">
+        <div class="nav_start d_flex">
+            <div class="logo mr-2">
+                <a href="{% url 'home' %}">
+                    <img src="{%static 'logo/logo2.png'%}" alt="LOGO" width="200">
+                </a>
+            </div>
+            <div class="nav_search ">
+                <form action="" method="get" class="d_flex">
+                    <input type="search" name="" id="" class="b_radius mr-2 pl-2" placeholder="search...">
+                    <button type="submit" class="btn btn-outline-success ">search</button>
                 </form>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
-                    {% if user.is_authenticated%}
-                    <a href="{% url 'cart'%}" style="margin-top: 1px;">
-                        <i class="fa fa-shopping-basket text- nav-item" style="font-size: 20px; color: rgb(127, 91, 13);"></i>
-                        <span class="badge badge-warning" id="cart_counter" style="color:black; background-color:#ffc107; border-radius: 60px; position: relative; bottom: 10px; left: -5px;">{{cart_count}}</span> </a>
-                    {%endif%}
-                    <a class="btn btn-sm " href="{% url 'marketplace' %}">marketplace</a> {% if user.is_authenticated%}
-
-                    <div class="nav-item">
-
-                        <a id="pro" href="{% url 'account'%}" class=" " style="border: 2px solid silver;
-                        padding: 10px;
-                        border-radius: 8px;
-                        padding-right: 23px;
-                        margin-left: 25px;">
-                            <i class="fa fa-user" aria-hidden="true" style="font-size: x-large;
-                            
-                            margin-left: 10px;"></i>
-                        </a>
-                    </div>
-                    {%else%}
-
-                    <a class="btn btn-sm" href="{% url 'login'%}">Login</a>
-
-
-                    <a class="btn btn-sm" aria-current="page" href="{% url 'registerUser' %}">Register</a>
-
-
-                    <a class="btn btn-sm " aria-current="page" href="{% url 'registerVendor' %}" style="width: 160px;">Register Vendor</a> {%endif%}
-
-
-
-
-                </ul>
-
-
-
             </div>
         </div>
+        <div class="nav_center">
+            <a href="{% url 'adoption' %}" class="btn btn-outline-danger btn-sm">ADOPT</a>
+        </div>
+        <div class="nav_end">
+            <ul class=" mb-2 mb-lg-0 text-uppercase">
+                <div class="d_flex">
+                    {% if user.is_authenticated%}
+                    <div>
+                        <a href="{% url 'cart'%}" style="margin-top: 1px;">
+                            <i class="fa fa-shopping-basket text- nav-item" style="font-size: 20px; color: rgb(127, 91, 13);"></i>
+                            <span class="badge badge-warning" id="cart_counter" style="color:black; background-color:#ffc107; border-radius: 60px; position: relative; bottom: 10px; left: -5px;">{{cart_count}}</span> </a>
+                    </div>
+                    {%endif%}
+                    <div class=" d_flex">
+                        <div>
+                            <a class="btn btn-sm btn-outline-success ml-2" href="{% url 'marketplace' %}">marketplace</a> {% if user.is_authenticated%}
+                        </div>
+                        <div>
+                            <a id="pro" href="{% url 'account'%}" class=" mr-5">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </a>
+                        </div>
+
+                    </div>
+
+
+
+                    {%else%}
+                </div>
+                <div class="d_flex">
+                    <div>
+                        <a class="btn btn-sm" href="{% url 'login'%}"><i class="fa fa-user" aria-hidden="true" style="font-size: x-large;margin-left: 10px;"></i></a>
+                    </div>
+                    <div class="mr-2">
+                        <a class="btn btn-sm btn-outline-success" aria-current="page" href="{% url 'registerUser' %}">Register</a>
+                    </div>
+                    <div>
+                        <a class="btn btn-sm btn-outline-success " aria-current="page" href="{% url 'registerVendor' %}" style="width: 160px;">Register Vendor</a> {%endif%}
+                    </div>
+                </div>
+            </ul>
+        </div>
+
     </nav>
 </body>
 

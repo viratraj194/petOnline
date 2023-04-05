@@ -7,11 +7,12 @@ from orders.models import Order, OrderedFood, Payment
 from vendor.models import Vendor
 from.forms import OrderForm
 import simplejson as json
-from . utils import generate_order_number
+from . utils import generate_order_number,order_total_by_vendor
 from test1.settings import RZP_KEY_ID,RZP_KEY_SECRET
 import razorpay
 from accounts.utils import send_notification
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.shortcuts import get_current_site
 # Create your views here.
 
 client = razorpay.Client(auth=(RZP_KEY_ID, RZP_KEY_SECRET))
@@ -22,12 +23,13 @@ def place_order(request):
     cart_count = cart_items.count()
     if cart_count <= 0:
         return redirect('marketplace')
+
     vendors_ids = []
     for i in cart_items:
         if i.fooditem.vendor.id not in vendors_ids:
             vendors_ids.append(i.fooditem.vendor.id)
-
-
+    
+    # {"vendor_id":{"subtotal":{"tax_type": {"tax_percentage": "tax_amount"}}}}
     get_tax = Tax.objects.filter(is_active=True)
     subtotal = 0
     total_data = {}
@@ -42,7 +44,8 @@ def place_order(request):
         else:
             subtotal = (fooditem.price * i.quantity)
             k[v_id] = subtotal
-        #calculate the tax data
+    
+        # Calculate the tax_data
         tax_dict = {}
         for i in get_tax:
             tax_type = i.tax_type
@@ -50,8 +53,7 @@ def place_order(request):
             tax_amount = round((tax_percentage * subtotal)/100, 2)
             tax_dict.update({tax_type: {str(tax_percentage) : str(tax_amount)}})
         # Construct total data
-        # vendor = Vendor.objects.get_or_create(user=request.user)[0]
-        total_data.update({request.user.id: {str(subtotal): str(tax_dict)}})    
+        total_data.update({fooditem.vendor.id: {str(subtotal): str(tax_dict)}})
 
         
     subtotal = get_cart_amount(request)['subtotal']
@@ -153,12 +155,19 @@ def payments(request):
         mail_subjects = 'Thank you for ordering with us'
         mail_template = 'orders/order_conformation_email.html'
 
-        
-
+        ordered_food = OrderedFood.objects.filter(order=order)
+        customer_subtotal = 0
+        for item in ordered_food:
+            customer_subtotal += (item.price * item.quantity)
+        tax_data = json.loads(order.tax_data)
         context = {
             'user':request.user,
             'order':order,
             'to_email':order.user.email,
+            'ordered_food':ordered_food,
+            'domain':get_current_site(request),
+            'customer_subtotal':customer_subtotal,
+            'tax_data':tax_data,
             
         }
         send_notification(mail_subjects,mail_template,context)
@@ -171,20 +180,22 @@ def payments(request):
         for i in cart_items:
             if i.fooditem.vendor.user.email not in to_emails:
                 to_emails.append(i.fooditem.vendor.user.email)
+                ordered_food_to_vendor = OrderedFood.objects.filter(order = order,fooditem__vendor= i.fooditem.vendor)
+                print(ordered_food_to_vendor)
        
                 # ordered_food_to_vendor = OrderedFood.objects.filter(order = order,fooditem__vendor = i.fooditem.vendor)
         
 
-        context = {
-            'order':order,
-            'to_email':to_emails,
-            # 'ordered_food_to_vendor':ordered_food_to_vendor,
-            # 'vendor_subtotal':order_total_by_vendor(order,i.fooditem.vendor.id)['subtotal'],
-            # 'tax_data':order_total_by_vendor(order,i.fooditem.vendor.id)['tax_dict'],
-            # 'vendor_grand_total':order_total_by_vendor(order,i.fooditem.vendor.id)['grand_total'],
-        }
-        send_notification(mail_subjects,mail_template,context)
-            
+                context = {
+                    'order':order,
+                    'to_email':to_emails,
+                    'ordered_food_to_vendor':ordered_food_to_vendor,
+                    'vendor_subtotal':order_total_by_vendor(order,i.fooditem.vendor.id)['subtotal'],
+                    # 'tax_data':order_total_by_vendor(order,i.fooditem.vendor.id)['tax_dict'],
+                    # 'vendor_grand_total':order_total_by_vendor(order,i.fooditem.vendor.id)['grand_total'],
+                }
+                send_notification(mail_subjects,mail_template,context)
+                
         #clear the cart if the payment is success
         # cart_items.delete()
         #return back to ajax with status success or failure

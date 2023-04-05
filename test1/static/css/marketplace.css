@@ -1,0 +1,118 @@
+/* utils */
+
+.d_flex {
+    display: flex;
+    flex-wrap: w;
+}
+
+.listing_vendor {
+    margin: 2cm auto;
+    width: 900px;
+}
+
+.listing_vendor h1 {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    font-family: 'Playfair Display', serif;
+    box-sizing: border-box;
+}
+
+.listing_vendor .vendor_list {
+    margin-top: 30px;
+    display: flex;
+    min-height: 150px;
+    background-color: white;
+    border: 1px solid rgb(218, 218, 218);
+    width: 600px;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.listing_vendor .vendor_list .small_detail {
+    display: flex;
+    width: 250px;
+    flex-direction: column;
+    margin-left: 8px;
+}
+
+.vendor_list .small_detail strong {
+    width: 100px;
+}
+
+#small_detail {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.listing_vendor .vendor_list a {
+    /* margin: 20px; */
+    width: 100px;
+    border: 1px solid rgb(231, 120, 120);
+}
+
+.listing_vendor .vendor_list img {
+    width: 100px;
+}
+
+.listing_vendor .vendor_list a:hover {
+    background-color: rgb(190, 52, 52);
+    color: white;
+}
+
+.message_box {
+    background-color: rgba(232, 156, 14, 0.9);
+    height: 100px;
+    width: 250px;
+    color: white;
+    display: inline;
+    position: absolute;
+    top: 5cm;
+    border-radius: 8px;
+    right: 0px;
+    margin-right: 300px;
+    text-align: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.message_box a:hover {
+    background-color: white;
+    color: rgba(232, 156, 14, 0.9);
+}
+
+@media (max-width: 480px) {
+    .listing_vendor .vendor_list {
+        width: 350px !important;
+        box-sizing: border-box;
+        max-height: 115px !important;
+    }
+    .vendor_list .small_detail {
+        width: 110px !important;
+    }
+    .listing_vendor {
+        margin: auto;
+        width: 95%;
+        font-size: 70%;
+    }
+    #view_menu {
+        width: 50px !important;
+        font-size: 10px !important;
+    }
+    .listing_vendor .vendor_list img {
+        width: 65px;
+    }
+    .message_box {
+        position: relative;
+        margin: 10px auto !important;
+        display: block;
+        width: 220px;
+        border-radius: 8px;
+        top: 20px;
+    }
+    .message_box a {
+        width: 120px;
+        color: white;
+    }
+}
